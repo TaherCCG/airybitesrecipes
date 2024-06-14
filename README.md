@@ -121,6 +121,34 @@ Additionally, I decided to create an Entity-Relationship Diagram (ERD) for the d
 6. **Category - Recipe**<br/>
 *One-to-Many*: A category can have multiple recipes. (category_id in Recipes references Categories._id).
 
+---
+
+### Wireframes
+
+I have designed the wireframe for PC and mobile screens for the AiryBites App to ensure a seamless user experience across all devices. The layout is intuitive, featuring easy navigation and clear categorisation of recipes. The design includes a search function, detailed recipe views, user profiles, and a straightforward upload process for user-submitted recipes. This approach ensures users can effortlessly find, save, and add ingrediants to shopping list of their favourite air fryer recipes, whether they are using a desktop or a mobile device.
+
+#### Home Page
+
+![alt text](documentation/images/wireframe/home-page.png)
+
+#### Search Results Page
+
+![alt text](documentation/images/wireframe/search-results.png)
+
+#### Category Page
+
+![alt text](documentation/images/wireframe/category-screen.png)
+
+#### Recipe Detail Page
+
+![alt text](documentation/images/wireframe/recipe-detail-screen.png)
+
+#### User Profile Page
+
+![alt text](documentation/images/wireframe/user-profile-page.png)
+
+---
+
 ## Technologies Used
 To build AiryBites Recipes, I will be utilising a robust stack of technologies:
 
