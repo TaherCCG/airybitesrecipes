@@ -45,14 +45,81 @@ Through this project, I aim to demonstrate my ability to integrate various techn
 - As an admin, I want to generate reports on user engagement and content performance, so that I can analyse the platform's usage and make informed decisions for improvements.
 - As an admin, I want to address user-reported issues or disputes, so that I can ensure a positive and fair experience for all users.
 
-### Colour Schema
+---
 
+### Colour Scheme
+For this app, I chose warm and inviting colour scheme which will enhance the app's appeal and usability.
 
-### Fonts
-[Raleway](https://fonts.google.com/specimen/Raleway)
-[Open Sans](https://fonts.google.com/specimen/Open+Sans)
+![alt text](documentation/images/design/airybites-colours.png)
 
+#### Primary Colour: Coral (#FF6F61)
 
+**Usage:** For primary buttons, highlights, and active elements.<br/>
+**Reason:** Coral is a warm and inviting colour that grabs attention without being overwhelming. It provides a lively and energetic touch, making interactive elements stand out and encouraging user engagement.
+
+#### Secondary Colour: Sage Green (#8AB49C)
+
+**Usage:** For secondary buttons, accents, and backgrounds.<br/>
+**Reason:** Sage Green offers a calming and natural feel, complementing the vibrancy of Coral. It creates a balanced and soothing palette, enhancing the app's overall aesthetic while providing a pleasant backdrop for content.
+
+#### Neutral Colour: Cream (#FFF5E1)
+
+**Usage:** For background colours, cards, and sections.<br/>
+**Reason:** Cream is a soft, neutral colour that adds warmth and elegance to the app. It ensures a clean and uncluttered look, making the text and images stand out, while providing a cohesive background for various sections.
+
+#### Accent Colour: Burnt Orange (#35400)
+
+**Usage:** For icons, links, and smal accents.<br/>
+**Reason:** Burnt Orange is a bold and earthy accent colour that adds depth and contrast. It draws attention to important elements such as icons and links, enhancing the user experience by making navigation intuitive and visually appealing.
+
+#### Dark Colour: Charcoal (#333333)
+
+**Usage:** For text, headers, and footers.<br/>
+**Reason:** Charcoal provides excellent readability and a strong visual foundation for text. It is a versatile and sophisticated dark colour that ensures clear contrast with lighter background colours, making it ideal for headers, footers, and body text.
+
+---
+
+### Typography
+#### Primary Font: [Raleway](https://fonts.google.com/specimen/Raleway)
+
+*Raleway is a clean, elegant sans-serif font that offers readability and modern aesthetics.*
+
+I chose the Raleway font for AiryBites Recipes because of its elegant and modern design, which enhances readability and gives the app a polished, professional appearance. Its versatility and range of weights ensure a cohesive and aesthetically pleasing user experience, making it ideal for headings and prominent text within the app.
+
+![alt text](documentation/images/design/raleway-font.png)
+
+#### Secondary Font: [Open Sans](https://fonts.google.com/specimen/Open+Sans)
+*Open Sans is a versatile and legible sans-serif font that complements Raleway well, ensuring readability across various devices and screen sizes.*
+
+I chose Open Sans as the secondary font for AiryBites Recipes because of its excellent readability and versatility. Its clean, neutral design complements the elegance of Raleway, ensuring that detailed recipe instructions and longer text sections are easy to read across various devices and screen sizes.
+
+![alt text](documentation/images/design/opensans-font.png)
+
+---
+
+### MongoDB
+
+I chose to use MongoDB for my AiryBites recipe app because its flexible, schema-less structure allows me to easily store and retrieve diverse recipe data with varying ingredients and instructions. MongoDB's document-oriented nature simplifies handling the complex, nested data typical of recipes. 
+<br/>
+
+Additionally, I decided to create an Entity-Relationship Diagram (ERD) for the database to provide a clear and visual representation of the data model. This ensures that the structure and relationships of the data are well understood and consistently implemented. The ERD also serves as valuable documentation, helps identify potential design issues early on, and offers guidance during development, keeping the database organised and scalable, ultimately enhancing the project's overall quality and maintainability.
+#### ERD
+
+![alt text](documentation/images/design/airy-erd-drawio.png)
+
+**Relationships / References**
+1. **Users - Recipes**<br/>
+*One-to-Many*: A user can create multiple recipes (author_id in Recipes references Users._id).
+2. **Users - Comments**<br/>
+*One-to-Many*: A user can write multiple comments (user_id in Comments references Users._id).
+3. **Users - Ratings**<br/>
+*One-to-Many*: A user can rate multiple recipes (user_id in Ratings references Users._id).
+4. **Recipes - Comments**<br/>
+*One-to-Many*: A recipe can have multiple comments (recipe_id in Comments references Recipes._id).
+5. **Recipes - Ratings**<br/>
+*One-to-Many*: A recipe can have multiple ratings (recipe_id in Ratings references Recipes._id).
+6. **Category - Recipe**<br/>
+*One-to-Many*: A category can have multiple recipes. (category_id in Recipes references Categories._id).
 
 ## Technologies Used
 To build AiryBites Recipes, I will be utilising a robust stack of technologies:
