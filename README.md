@@ -121,6 +121,24 @@ Additionally, I decided to create an Entity-Relationship Diagram (ERD) for the d
 6. **Category - Recipe**<br/>
 *One-to-Many*: A category can have multiple recipes. (category_id in Recipes references Categories._id).
 
+#### Collections
+I have set up some basic collections for MongoDB to support the functionality of the AiryBites App. These collections include user profiles, recipes, ratings, comments and categories, each structured to efficiently store and retrieve relevant data. This setup ensures the app runs smoothly and can handle user interactions effectively. I will make changes to these collections as needed to better support the app's evolving requirements.
+
+- **Users** Stores information about the users.<br/>
+*(UserID, Username, Email, Password, CreatedAt, UpdatedAt)*<br/>
+
+- **Recipes** Stores information about the recipes, including cooking steps. References Users and Categories.<br/>
+*(RecipeID, Title, Description, Ingredients[], PreparationSteps[], CookTime, Temperature, Servings, ImageURL, AuthorID, CategoryID, Tags[], CreatedAt, UpdatedAt)*<br/>
+
+- **Comments** Stores comments on recipes. References Users and Recipes.<br/>
+*(CommentID, RecipeID, UserID, Comment, CreatedAt, UpdatedAt)*<br/>
+
+- **Ratings** Stores ratings for recipes. References Users and Recipes.<br/>
+*(RatingID, RecipeID, UserID, Rating, CreatedAt, UpdatedAt)*<br/>
+
+- **Categories** Stores information about recipe categories.<br/>
+*(CategoryID, Name, Description, CreatedAt, UpdatedAt)*<br/>
+
 ---
 
 ### Wireframes
