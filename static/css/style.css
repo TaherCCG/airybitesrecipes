@@ -1,3 +1,128 @@
-body {
-    background-color: blueviolet;
+/*  Root Styling */
+:root {
+    /* Colours */
+    --primary-colour: #FF6F61;
+    --secondary-colour: #8AB49C;
+    --neutral-colour: #FFF5E1;
+    --accent-colour: #D35400;
+    --dark-colour: #333333;
+
+    /* Fonts */
+    --primary-font: 'Raleway', sans-serif;
+    --secondary-font: 'Open Sans', sans-serif;
+
+    /* Font Sizes */
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 18px;
+    --font-size-xlarge: 24px;
 }
+
+body {
+    font-family: var(--secondary-font);
+    background-color: var(--neutral-colour);
+    color: var(--dark-colour);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--primary-font);
+    color: var(--dark-colour);
+}
+
+a {
+    color: var(--accent-colour);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--secondary-colour);
+}
+
+.button-primary {
+    background-color: var(--primary-colour);
+    color: var(--neutral-colour);
+    font-family: var(--primary-font);
+}
+
+.button-secondary {
+    background-color: var(--secondary-colour);
+    color: var(--neutral-colour);
+    font-family: var(--primary-font);
+}
+
+.header,
+.footer {
+    background-color: var(--dark-colour);
+    color: var(--neutral-colour);
+    font-family: var(--primary-font);
+}
+
+.card {
+    background-color: var(--neutral-colour);
+    border: 1px solid var(--secondary-colour);
+}
+
+.icon {
+    color: var(--accent-colour);
+}
+
+.text-primary {
+    color: var(--primary-colour);
+}
+
+.text-secondary {
+    color: var(--secondary-colour);
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Nav Styling */
+nav {
+    background-color: var(--primary-colour);
+    padding: 1em;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 1em;
+}
+
+nav ul li a {
+    color: var(--neutral-colour);
+    text-decoration: none;
+    font-family: var(--primary-font);
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: var(--secondary-colour);
+}
+
+.brand-logo {
+    font-family: var(--primary-font);
+    font-weight: bold;
+}
+
+.sidenav {
+    background-color: var(--secondary-colour);
+}
+
+.sidenav li h4{
+    font-family: var(--primary-font);
+    font-weight: bold;
+}
+
+
