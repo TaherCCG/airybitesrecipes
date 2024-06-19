@@ -55,9 +55,23 @@
             <li><a href="{{ url_for('register') }}">Register</a></li>
         </ul>
     </header>
-
-    {% block content%}
-    {% endblock %}
+    
+    <section>
+        <!-- flash messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="row flashes">
+                        <h4>{{ message|safe }}</h4>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </section>
+    <main class="container">
+        {% block content%}
+        {% endblock %}
+    </main>
 
     <!-- jQuery CDN minified -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
