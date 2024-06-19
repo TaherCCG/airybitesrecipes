@@ -27,6 +27,32 @@ def get_recipes():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if request.method == "POST":
+        # Check if password match
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+
+        if password != confirm_password:
+            flash("Passwords do not match. Please try again.", "error")
+            return redirect(url_for('register'))
+
+        # Check if username already exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+        
+        if existing_user:
+            flash("Username already exists.<br>Please choose another username.")
+            return redirect(url_for("register"))
+
+        register = {
+            "username": request.form.get("username").lower(),
+            "password": generate_password_hash(request.form.get("password"))
+        }
+        mongo.db.users.insert_one(register)
+
+        # Put new User into Session (cookie)
+        session["user"] = request.form.get("username").lower()
+        flash("Registration Succesful!")
     return render_template("register.html")
 
 
