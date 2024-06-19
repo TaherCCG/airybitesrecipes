@@ -47,6 +47,7 @@ a:hover {
     background-color: var(--primary-colour);
     color: var(--neutral-colour);
     font-family: var(--primary-font);
+    font-weight: bold;
 }
 
 .button-secondary {
@@ -55,6 +56,12 @@ a:hover {
     font-family: var(--primary-font);
 }
 
+.button-primary:hover,
+.button-secondary:hover {
+    background-color: var(--secondary-colour);
+}
+
+
 .header,
 .footer {
     background-color: var(--dark-colour);
@@ -62,9 +69,10 @@ a:hover {
     font-family: var(--primary-font);
 }
 
-.card {
+.card-panel {
     background-color: var(--neutral-colour);
     border: 1px solid var(--secondary-colour);
+    color: var(--dark-colour);
 }
 
 .icon {
@@ -120,9 +128,19 @@ nav ul li a:hover {
     background-color: var(--secondary-colour);
 }
 
-.sidenav li h4{
+.sidenav li h4 {
     font-family: var(--primary-font);
     font-weight: bold;
 }
 
+/* Register Page */
+/* label focus color */
+.input-field input:focus+label {
+    color: red !important;
+}
 
+/* label underline focus color */
+.row .input-field input:focus {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 red !important
+}
