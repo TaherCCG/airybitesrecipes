@@ -151,3 +151,11 @@ nav ul li a:hover {
     color: var(--accent-colour);
     text-align: center;
 }
+
+.collapsible-header {
+    background-color: var(--secondary-colour);
+    font-family: var(--primary-font);
+    color: var(--dark-colour);
+    font-size: var(--font-size-large);
+    font-weight: bold;
+}
