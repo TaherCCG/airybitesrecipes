@@ -26,6 +26,13 @@ def get_ingredient_name(ingredient_id):
         return ingredient["ing_name"]
     return "Unknown Ingredient"
 
+# Below I registered the get_ingredient_name function as a global function in Jinja2 templates
+# This allows the function to be called directly within any Jinja2 template without
+# needing to pass it explicitly.
+# Ref1: https://flask.palletsprojects.com/en/2.3.x/templating/
+# Ref2: https://stackoverflow.com/questions/43335931/global-variables-in-flask-templates
+app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
+
 
 # Route to display recipes
 @app.route("/")
