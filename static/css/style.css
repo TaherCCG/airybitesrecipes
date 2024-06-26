@@ -61,6 +61,9 @@ a:hover {
     background-color: var(--secondary-colour);
 }
 
+.btn-small {
+    margin: 5px;
+}
 
 .header,
 .footer {
@@ -153,6 +156,8 @@ nav ul li a:hover {
 }
 
 .collapsible-header {
+    margin : 5px;
+    line-height: 42px;
     background-color: var(--secondary-colour);
     font-family: var(--primary-font);
     color: var(--dark-colour);
