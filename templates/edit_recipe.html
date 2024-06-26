@@ -10,9 +10,13 @@
                 <div class="input-field col s12">
                     <i class="fas fa-folder-open icon prefix"></i>
                     <select id="category_name" name="category_name" class="validate" required>
-                        <option value="" disabled selected>Choose Category</option>
+                        <option value="" disabled>Choose Category</option>
                         {% for category in categories %}
-                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% if recipe and category.category_name.strip().lower() == recipe.category.strip().lower() %}
+                                <option value="{{ category.category_name }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label>Recipe Category</label>
@@ -23,7 +27,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt icon prefix"></i>
                     <input id="recipe_title" name="recipe_title" minlength="5" maxlength="50" 
-                        type="text" class="validate" required>
+                        value="{{ recipe.recipe_title }}" type="text" class="validate" required>
                     <label for="recipe_title">Recipe Title</label>
                 </div>
             </div>
@@ -32,7 +36,9 @@
                 <div class="input-field col s12">
                     <i class="fas fa-align-left icon prefix"></i>
                     <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="250"
-                        class="materialize-textarea validate" required></textarea>
+                        class="materialize-textarea validate" required>
+                        {{- recipe.recipe_description -}}
+                    </textarea>
                     <label for="recipe_description">Recipe Description</label>
                 </div>
             </div>
@@ -40,22 +46,22 @@
             <div class="row card-panel">
                 <div class="input-field col s6">
                     <i class="fas fa-stopwatch icon prefix"></i>
-                    <input id="cook_time" name="cook_time" type="number" class="validate" required>
+                    <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe.cook_time }}" required>
                     <label for="cook_time">Cook Time (minutes)</label>
                 </div>
                 <div class="input-field col s6">
                     <i class="fas fa-stopwatch icon prefix"></i>
-                    <input id="prep_time" name="prep_time" type="number" class="validate" required>
+                    <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe.prep_time }}" required>
                     <label for="prep_time">Prep Time (minutes)</label>
                 </div>
                 <div class="input-field col s6">
                     <i class="fas fa-thermometer-half icon prefix"></i>
-                    <input id="temperature" name="temperature" type="number" class="validate" required>
+                    <input id="temperature" name="temperature" type="number" class="validate" value="{{ recipe.temperature }}" required>
                     <label for="temperature">Temperature (°C)</label>
                 </div>
                 <div class="input-field col s12">
                     <i class="fas fa-users icon prefix"></i>
-                    <input id="servings" name="servings" type="number" class="validate" required>
+                    <input id="servings" name="servings" type="number" class="validate" value="{{ recipe.servings }}" required>
                     <label for="servings">Servings</label>
                 </div>
             </div>
@@ -63,19 +69,21 @@
             <div class="row card-panel">
                 <h2>Ingredients</h2>
                 <div id="ingredients">
-                    <div class="row ingredient">
-                        <div class="input-field col s6">
-                            <i class="fas fa-utensils icon prefix"></i>
-                            <input type="text" id="ingredient_name_1" name="ingredient_name[]" 
-                                class="validate" required>
-                            <label for="ingredient_name_1">Ingredient Name</label>
+                    {% for ingredient_ref in recipe.ingredients %}
+                        <div class="row ingredient">
+                            <div class="input-field col s6">
+                                <i class="fas fa-utensils icon prefix"></i>
+                                <input type="text" id="ingredient_name_{{ loop.index }}" name="ingredient_name[]" 
+                                    class="validate" value="{{ get_ingredient_name(ingredient_ref.ingredient_id) }}" required>
+                                <label for="ingredient_name_{{ loop.index }}" class="active">Ingredient Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input type="text" id="ingredient_quantity_{{ loop.index }}" name="ingredient_quantity[]"
+                                    class="validate" value="{{ ingredient_ref.quantity }}" required>
+                                <label for="ingredient_quantity_{{ loop.index }}" class="active">Quantity</label>
+                            </div>
                         </div>
-                        <div class="input-field col s6">
-                            <input type="text" id="ingredient_quantity_1" name="ingredient_quantity[]"
-                                class="validate" required>
-                            <label for="ingredient_quantity_1">Quantity</label>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <button type="button" id="add-ingredient-btn" class="btn" onclick="addIngredient()">
                     Add Another Ingredient
@@ -86,7 +94,9 @@
                 <div class="input-field col s12">
                     <i class="fas fa-utensils icon prefix"></i>
                     <textarea id="instructions" name="instructions" class="materialize-textarea validate"
-                        required></textarea>
+                        required>
+                        {{- "\n".join(recipe.instructions) -}}
+                    </textarea>
                     <label for="instructions">Instructions (use newline for each step)</label>
                 </div>
             </div>
@@ -102,13 +112,17 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-tags icon prefix"></i>
-                    <input id="tags" name="tags" type="text" class="validate">
+                    <input id="tags" name="tags" type="text" class="validate" value="{{ recipe.tags|join(', ') }}">
                     <label for="tags">Tags (comma separated)</label>
                 </div>
             </div>
             <!-- Submit Button -->
             <div class="row">
                 <div class="col s12 center-align">
+                    <a href="{{ url_for('get_recipes')}}" class="btn red text_shadow">
+                        Cancel Edit 
+                        <i class="fas fa-times-circle right"></i>
+                    </a>
                     <button type="submit" class="btn">
                         Edit Recipe <i class="fas fa-edit icon right"></i>
                     </button>
