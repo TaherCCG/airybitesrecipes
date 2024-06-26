@@ -12,7 +12,7 @@
                     <select id="category_name" name="category_name" class="validate" required>
                         <option value="" disabled selected>Choose Category</option>
                         {% for category in categories %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                         {% endfor %}
                     </select>
                     <label>Recipe Category</label>
@@ -22,8 +22,8 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt icon prefix"></i>
-                    <input id="recipe_title" name="recipe_title" minlength="5" maxlength="50" type="text" class="validate"
-                        required>
+                    <input id="recipe_title" name="recipe_title" minlength="5" maxlength="50" 
+                        type="text" class="validate" required>
                     <label for="recipe_title">Recipe Title</label>
                 </div>
             </div>
@@ -66,13 +66,13 @@
                     <div class="row ingredient">
                         <div class="input-field col s6">
                             <i class="fas fa-utensils icon prefix"></i>
-                            <input type="text" id="ingredient_name_1" name="ingredient_name[]" class="validate"
-                                required>
+                            <input type="text" id="ingredient_name_1" name="ingredient_name[]" 
+                                class="validate" required>
                             <label for="ingredient_name_1">Ingredient Name</label>
                         </div>
                         <div class="input-field col s6">
-                            <input type="text" id="ingredient_quantity_1" name="ingredient_quantity[]" class="validate"
-                                required>
+                            <input type="text" id="ingredient_quantity_1" name="ingredient_quantity[]" 
+                                class="validate" required>
                             <label for="ingredient_quantity_1">Quantity</label>
                         </div>
                     </div>
