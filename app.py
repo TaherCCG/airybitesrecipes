@@ -184,8 +184,59 @@ def add_recipe():
 # 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
-    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    if request.method == "POST":
+        category = request.form["category_name"]
+        recipe_title = request.form["recipe_title"]
+        recipe_description = request.form["recipe_description"]
+        cook_time = int(request.form["cook_time"])
+        prep_time = int(request.form["prep_time"])
+        total_time = cook_time + prep_time
+        temperature = int(request.form["temperature"])
+        servings = int(request.form["servings"])
+        instructions = request.form["instructions"].split("\n")
+        image_url = request.form["image_url"]
+        tags = request.form["tags"].split(",")
+
+        ingredient_names = request.form.getlist("ingredient_name[]")
+        ingredient_quantities = request.form.getlist("ingredient_quantity[]")
+
+        ingredient_refs = []
+
+        for name, quantity in zip(ingredient_names, ingredient_quantities):
+            ingredient = mongo.db.ingredients.find_one({"ing_name": name})  # Use "ing_name" here
+            if not ingredient:
+                ingredient_id = mongo.db.ingredients.insert_one({"ing_name": name}).inserted_id  # Insert new ingredient
+            else:
+                ingredient_id = ingredient["_id"]
+            ingredient_refs.append({
+                "ingredient_id": ingredient_id,
+                "quantity": quantity
+            })
+
+        created_at = datetime.datetime.now()
+        updated_at = datetime.datetime.now()
+
+        update = {
+            "recipe_title": recipe_title,
+            "recipe_description": recipe_description,
+            "instructions": instructions,
+            "cook_time": cook_time,
+            "prep_time": prep_time,
+            "total_time": total_time,
+            "temperature": temperature,
+            "servings": servings,
+            "image_url": image_url,
+            "category": category,
+            "tags": tags,
+            "ingredients": ingredient_refs,
+            "created_at": created_at,
+            "updated_at": updated_at,
+            "created_by": session["user"]
+        }
+        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": update})
+        flash("Recipe Successfully Updated")
     
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_recipe.html", recipe=recipe, categories=categories)
 
