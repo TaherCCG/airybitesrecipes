@@ -13,6 +13,9 @@ AiryBites Recipes will enable users to create, share, and discover a variety of 
 - Interact with the community through comments and ratings
 Through this project, I aim to demonstrate my ability to integrate various technologies into a cohesive and functional application, ensuring a smooth and engaging user experience.
 
+
+## Deployed App : https://airybites-app-9649332aa316.herokuapp.com/
+
 ## List Of Features
 
 
