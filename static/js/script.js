@@ -6,6 +6,8 @@ $(document).ready(function () {
     $('.collapsible').collapsible();
     // Select option
     $('select').formSelect();
+    // Modal
+    $('.modal').modal();
 
     /* 
     Refrences for my workout to add ingredient input fields dynamically
