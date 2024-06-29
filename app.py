@@ -61,10 +61,14 @@ def register():
         if existing_user:
             flash("Username already exists.<br>Please choose another username.")
             return redirect(url_for("register"))
+        
+        # Set default role to user
+        role = request.form.get("role", "user")
 
         register = {
             "username": request.form.get("username").lower(),
-            "password": generate_password_hash(request.form.get("password"))
+            "password": generate_password_hash(request.form.get("password")),
+            "role": role
         }
         mongo.db.users.insert_one(register)
 
