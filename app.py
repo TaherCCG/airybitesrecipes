@@ -18,11 +18,20 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+# Check user role before each request
+@app.before_request
+def before_request():
+    g.user_role = None
+    if 'user' in session:
+        user = mongo.db.users.find_one({"username": session['user']})
+        if user:
+            g.user_role = user.get('role', 'user')
+
 
 # Decorated function to check if user is admin or not
 def admin_required(f):
     @wraps(f)
-    def decorated_function(*args, **kwargs):
+    def check_role(*args, **kwargs):
         if 'user' not in session:
             flash("You need to be logged in to access this page.")
             return redirect(url_for("login"))
@@ -31,7 +40,7 @@ def admin_required(f):
             flash("You do not have the necessary permissions to access this page.")
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
-    return decorated_function
+    return check_role
 
 # Route to display recipes
 @app.route("/")
