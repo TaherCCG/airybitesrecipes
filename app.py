@@ -1,14 +1,14 @@
 import os
 from flask import (
     Flask, flash, render_template,
-    redirect, request, session, url_for)
+    redirect, request, session, url_for, g)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from functools import wraps
 if os.path.exists("env.py"):
     import env
-
 
 app = Flask(__name__)
 
@@ -18,21 +18,20 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-# Ref 1: https://flask-pymongo.readthedocs.io/en/latest/
-# Helper function to get ingredient name by id
-def get_ingredient_name(ingredient_id):
-    ingredient = mongo.db.ingredients.find_one({"_id": ObjectId(ingredient_id)})
-    if ingredient:
-        return ingredient["ing_name"]
-    return "Unknown Ingredient"
 
-# Below I registered the get_ingredient_name function as a global function in Jinja2 templates
-# This allows the function to be called directly within any Jinja2 template without
-# needing to pass it explicitly.
-# Ref1: https://flask.palletsprojects.com/en/2.3.x/templating/
-# Ref2: https://stackoverflow.com/questions/43335931/global-variables-in-flask-templates
-app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
-
+# Decorated function to check if user is admin or not
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            flash("You need to be logged in to access this page.")
+            return redirect(url_for("login"))
+        user = mongo.db.users.find_one({"username": session['user']})
+        if not user or user.get('role') != 'admin':
+            flash("You do not have the necessary permissions to access this page.")
+            return redirect(url_for("get_recipes"))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Route to display recipes
 @app.route("/")
@@ -61,9 +60,9 @@ def register():
         if existing_user:
             flash("Username already exists.<br>Please choose another username.")
             return redirect(url_for("register"))
-        
+
         # Set default role to user
-        role = request.form.get("role", "user")
+        role = "user"
 
         register = {
             "username": request.form.get("username").lower(),
@@ -74,12 +73,20 @@ def register():
 
         # Put new User into Session (cookie)
         session["user"] = request.form.get("username").lower()
-        flash("Registration Succesful!")
+        flash("Registration Successful!")
         return redirect(url_for("profile", username=session["user"]))
     return render_template("register.html")
 
 
-# Route to display login pge
+# Route to admin panel
+@app.route('/admin_panel')
+@admin_required
+def admin_panel():
+    users = mongo.db.users.find()
+    return render_template('admin_panel.html', users=users)
+
+
+# Route to display login page
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -100,7 +107,7 @@ def login():
                 return redirect(url_for("login"))
 
         else:
-            # User does not exsits
+            # User does not exist
             flash("Incorrect Username and/or Password! <br> Please check and try again.")
             return redirect(url_for("login"))
 
@@ -123,6 +130,22 @@ def logout():
     flash("You have logged out")
     session.pop("user")
     return redirect(url_for("login"))
+
+
+# Ref 1: https://flask-pymongo.readthedocs.io/en/latest/
+# Helper function to get ingredient name by id
+def get_ingredient_name(ingredient_id):
+    ingredient = mongo.db.ingredients.find_one({"_id": ObjectId(ingredient_id)})
+    if ingredient:
+        return ingredient["ing_name"]
+    return "Unknown Ingredient"
+
+# Below I registered the get_ingredient_name function as a global function in Jinja2 templates
+# This allows the function to be called directly within any Jinja2 template without
+# needing to pass it explicitly.
+# Ref1: https://flask.palletsprojects.com/en/2.3.x/templating/
+# Ref2: https://stackoverflow.com/questions/43335931/global-variables-in-flask-templates
+app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
 
 
 # Route to add recipe to the database
@@ -185,7 +208,7 @@ def add_recipe():
     return render_template("add_recipe.html", categories=categories)
 
 
-# 
+# Edit / Update recipe  
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
@@ -237,26 +260,23 @@ def edit_recipe(recipe_id):
             "updated_at": updated_at,
             "created_by": session["user"]
         }
+
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": update})
         flash("Recipe Successfully Updated")
-    
+        return redirect(url_for("get_recipes"))
+
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_recipe.html", recipe=recipe, categories=categories)
 
 
-@app.route("/delete_recipe/<recipe_id>", methods=["POST"])
+# Delete recipe
+@app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
-    if request.method == "POST":
-        try:
-            mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-            flash("Recipe Successfully Deleted", "success")
-        except PyMongoError as e:
-            flash(f"Error deleting recipe: {str(e)}", "error")
+    mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
+    flash("Recipe Successfully Deleted")
     return redirect(url_for("get_recipes"))
 
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"),
-            port=int(os.environ.get("PORT")),
-            debug=True)
+    app.run(host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=True)
