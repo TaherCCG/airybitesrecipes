@@ -95,6 +95,13 @@ def admin_panel():
     return render_template('admin_panel.html', users=users)
 
 
+# Route for user roles
+@app.route('/user_roles')
+@admin_required
+def user_roles():
+    return render_template('user_roles.html')
+
+
 # Route to display login page
 @app.route("/login", methods=["GET", "POST"])
 def login():

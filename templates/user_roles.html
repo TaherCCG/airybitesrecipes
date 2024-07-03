@@ -1,0 +1,40 @@
+{% extends "admin_panel.html" %}
+
+{% block title %}User Roles{% endblock %}
+
+{% block admin_content %}
+
+<div class="container">
+    <h1>User Roles</h1>
+    <p> Here you can manage user roles.  Please select the role for the user and then press update button.</p>
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <form action="" method="POST">
+                        <div class="input-field">
+                            <select name="role" class="browser-default">
+                                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn">Update Role</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
