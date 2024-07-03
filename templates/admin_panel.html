@@ -1,15 +1,31 @@
 {% extends "base.html"%}
+
+{% block title %}Admin Panel{% endblock %}
+
 {% block content %}
+
 
 <div class="row">
     <div class="col s12 m8 offset-m2">
         <div class="card-panel">
-            <h3 class="center-align text-shadow">
-                Admin Panel
-            </h3>
-            <p>Welcome {{ username }}</p>
+            <h1 class="center-align text-shadow">
+                Welcome to Admin Panel
+            </h1>
         </div>
     </div>
+</div>
+
+ <!-- Admin-specific navigation -->
+ <nav>
+    <ul>
+        <li><a href="{{ url_for('user_roles') }}">User Roles</a></li>
+    </ul>
+</nav>
+<div class="admin-content">
+    {% block admin_content %}
+        <!-- Default admin panel content or content based on route -->
+        <p>Select an option from the navigation.</p>
+    {% endblock %}
 </div>
 
 {% endblock %}
