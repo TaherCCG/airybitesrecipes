@@ -1,31 +1,32 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
-{% block title %}Admin Panel{% endblock %}
+{% block title %}
+Admin Panel
+{% endblock %}
 
 {% block content %}
-
-
 <div class="row">
-    <div class="col s12 m8 offset-m2">
-        <div class="card-panel">
-            <h1 class="center-align text-shadow">
-                Welcome to Admin Panel
-            </h1>
-        </div>
+    <!-- Admin Navbar -->
+    <div class="col s3">
+        <ul id="admin-nav" class="collection">
+            <li class="" ><h5 class="brand-logo">Admin Panel</h3></li>
+            <li class="collection-item"><a href="#">Manage Recipes</a></li>
+            <li class="collection-item"><a href="{{ url_for('user_roles') }}">Manage Users</a></li>
+            <li class="collection-item"><a href="#">User Roles</a></li>
+            <li class="collection-item"><a href="#">User Activity</a></li>
+        </ul>
+    </div>
+
+    <!-- Admin Content Block -->
+    <div class="col s9">
+        {% block admin_content %}
+
+        <!-- default message -->
+
+            <h3 class="brand-logo center-align">Admin Panel</h3>
+            <p>Please select an option from the left admin navbar!</p>
+        {% endblock %}
     </div>
 </div>
-
- <!-- Admin-specific navigation -->
- <nav>
-    <ul>
-        <li><a href="{{ url_for('user_roles') }}">User Roles</a></li>
-    </ul>
-</nav>
-<div class="admin-content">
-    {% block admin_content %}
-        <!-- Default admin panel content or content based on route -->
-        <p>Select an option from the navigation.</p>
-    {% endblock %}
-</div>
-
 {% endblock %}
+
