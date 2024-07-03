@@ -95,11 +95,21 @@ def admin_panel():
     return render_template('admin_panel.html', users=users)
 
 
-# Route for user roles
-@app.route('/user_roles')
+# Add a route to render the user_roles page
+@app.route('/admin/user_roles')
 @admin_required
 def user_roles():
-    return render_template('user_roles.html')
+    users = mongo.db.users.find()
+    return render_template('user_roles.html', users=users)
+
+# Update User Role
+@app.route('/update_role/<user_id>', methods=['POST'])
+@admin_required
+def update_role(user_id):
+    new_role = request.form['role']
+    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"role": new_role}})
+    flash("User role updated.", "success")
+    return redirect(url_for('admin_panel'))
 
 
 # Route to display login page

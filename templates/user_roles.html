@@ -3,10 +3,17 @@
 {% block title %}User Roles{% endblock %}
 
 {% block admin_content %}
-
 <div class="container">
-    <h1>User Roles</h1>
-    <p> Here you can manage user roles.  Please select the role for the user and then press update button.</p>
+    <div class="heading">
+    <h3>User Roles Management </h3>
+        <div class="description">
+            <p>Here you can manage user roles. Please select the role for the user and then press the 'Update Now' button.</p>
+            <p class="text-highlight"><strong class="warning">WARNING:</strong> Assigning the admin role grants full access to all administrative features of the site, 
+                including user management and content moderation. Only trusted users should be given this level of access. 
+                Misuse of admin privileges can lead to security vulnerabilities and unauthorised changes to the site.
+            </p>
+        </div>
+    </div>
     <table class="highlight">
         <thead>
             <tr>
@@ -21,7 +28,7 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.role }}</td>
                 <td>
-                    <form action="" method="POST">
+                    <form action="{{ url_for('update_role', user_id=user._id) }}" method="POST">
                         <div class="input-field">
                             <select name="role" class="browser-default">
                                 <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
@@ -36,5 +43,4 @@
         </tbody>
     </table>
 </div>
-
 {% endblock %}
