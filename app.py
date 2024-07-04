@@ -109,7 +109,26 @@ def update_role(user_id):
     new_role = request.form['role']
     mongo.db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"role": new_role}})
     flash("User role updated.", "success")
-    return redirect(url_for('admin_panel'))
+    return redirect(url_for('user_roles'))
+
+# Delete User
+@app.route("/delete_user/<user_id>", methods=["POST"])
+@admin_required
+def delete_user(user_id):
+    delete_recipes = request.form.get('delete_recipes') == 'true'
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    
+    if user:
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+        
+        if delete_recipes:
+            mongo.db.recipes.delete_many({"created_by": user["username"]})
+        
+        flash("User and their recipes successfully deleted" if delete_recipes else "User successfully deleted")
+    else:
+        flash("User not found.", "error")
+    
+    return redirect(url_for("user_roles"))
 
 
 # Route to display login page
