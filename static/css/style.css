@@ -172,7 +172,7 @@ nav ul li a:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 1; 
 }
 
@@ -182,7 +182,6 @@ nav ul li a:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: white;
     z-index: 2; 
 }
 
@@ -193,15 +192,26 @@ nav ul li a:hover {
 
 .hero-text h1 {
     font-size: 48px;
+    font-family: var(--primary-font);
     font-weight: bold;
     margin-bottom: 16px;
 }
 
 .hero-text h2 {
     font-size: 32px;
-    font-weight: normal;
+    font-weight: 500;
+    font-family: var(--primary-font);
     margin-bottom: 0;
     font-style: italic;
+}
+
+.hero-text .divider {
+    border: none;
+    border-radius: 25%;
+    height: 4px; 
+    width: 80px; 
+    background-color: var(--accent-colour);
+    margin: 20px auto;
 }
 
 /* Register Page */
@@ -251,6 +261,12 @@ nav ul li a:hover {
 
 .nav-link a:hover {
     color:var(--accent-colour)
+}
+
+fieldset {
+    border: 1px solid var(--accent-colour);
+    padding: 1rem;
+    border-radius: 5px;
 }
 
 /* Responsive adjustments */
