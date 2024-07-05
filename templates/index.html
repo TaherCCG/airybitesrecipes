@@ -5,6 +5,14 @@
 {% endblock %}
 
 {% block content %}
+<!-- Hero Image -->
+<div class="hero-image">
+    <img src="{{ url_for('static', filename='images/hero-bg.png') }}" alt="Hero Image">
+    <div class="hero-text">
+        <h1 class="text-primary">AiryBites</h1>
+        <h2 class="text-secondary">Crispy Goodness at Your Fingertips</h2>
+    </div>
+</div>
 <div class="container">
     <ul class="collapsible">
         {% for recipe in recipes %}
