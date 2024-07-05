@@ -5,13 +5,25 @@ Admin Panel
 {% endblock %}
 
 {% block admin_nav %}
-<nav class="nav-extended admin-nav">
-    <ul class="nav-content">
-        <li class="nav-link"><a href="#manage-recipes">Manage Recipes</a></li>
-        <li class="nav-link"><a href="#manage-categories">Manage Categories</a></li>
-        <li class="nav-link"><a href="{{ url_for('user_roles') }}">Manage Users</a></li>
-    </ul>
-</nav>
+    <nav class="nav-extended admin-nav">
+        <ul class="nav-content">
+            <li class="nav-link">
+                <a href="#manage-recipes" aria-label="Go to manage recipes as admin.">
+                    Manage Recipes
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="#manage-categories" aria-label="Go to manage categories as admin.">
+                    Manage Categories
+                </a>
+            </li>
+            <li class="nav-link">
+                <a href="{{ url_for('user_roles') }}" aria-label="Go to manage users as admin.">
+                    Manage Users
+                </a>
+            </li>
+        </ul>
+    </nav>
 {% endblock %}
 
 {% block content %}
@@ -22,69 +34,95 @@ Admin Panel
                 {% block admin_content %}
                 <!-- Default content for admin panel -->
                 <div id="admin-info" class="section card-panel">
-                    <h4 class="text-primary text-shadow"><i class="fa-solid fa-user-tie icon"></i>
-                        Admin Panel
-                    </h4>
-                    <p>Welcome to the Admin Panel. As an administrator, you have access to powerful tools to manage the
-                        site efficiently. Please use these tools with care and responsibility, as they impact user
-                        experience and site functionality directly.</p>
-                    <p>Your actions can influence site integrity and user trust, so exercise discretion when making
-                        changes. Thank you for your diligence in maintaining a safe and enjoyable experience for all
-                        users.</p>
-                    <p>Here's what you can do:</p>
-                </div>
+                    <fieldset>
+                        <legend>
+                            <h4 class="text-shadow">
+                                <a href="{{ url_for('admin_panel') }}">
+                                    <i class="fa-solid fa-user-tie icon"></i>
+                                    Admin Panel
+                                </a>
+                            </h4>
+                        </legend>
+                        <p>Welcome to the Admin Panel. As an administrator, you have access to powerful tools to manage the
+                            site efficiently. Please use these tools with care and responsibility, as they impact user
+                            experience and site functionality directly.</p>
+                        <p>Your actions can influence site integrity and user trust, so exercise discretion when making
+                            changes. Thank you for your diligence in maintaining a safe and enjoyable experience for all
+                            users.</p>
+                        <p>Here's what you can do:</p>
+                    </fieldset>
+                    </div>
 
                 <div id="manage-recipes" class="section card-panel">
-                    <h4 class="text-primary text-shadow"><i class="fa-solid fa-book icon"></i>
-                        Manage Recipes
-                    </h4>
-                    <p>Oversee and control all recipe-related content on the site. You can view a list of all available
-                        recipes, delete unwanted recipes, and access detailed information for each recipe.</p>
-                    <ul>
-                        <li><strong>View all recipes:</strong> See a list of all recipes available on the site.</li>
-                        <li><strong>Delete a recipe:</strong> Remove a recipe permanently from the database.</li>
-                        <li><strong>View recipe details:</strong> Access detailed information about any recipe.</li>
-                    </ul>
-                    <p>Effective recipe management ensures that content remains fresh and relevant, contributing to a
-                        positive user experience. Carefully review recipes before making changes.</p>
-                </div>
+                    <fieldset>
+                        <legend>
+                            <h4 class="text-primary text-shadow">
+                                <a href="#manage-recipes">
+                                    <i class="fa-solid fa-book icon"></i>
+                                    Manage Recipes
+                                </a>
+                            </h4>
+                        </legend>
+                        <p>Oversee and control all recipe-related content on the site. You can view a list of all available
+                            recipes, delete unwanted recipes, and access detailed information for each recipe.</p>
+                        <ul>
+                            <li><strong>View all recipes:</strong> See a list of all recipes available on the site.</li>
+                            <li><strong>Delete a recipe:</strong> Remove a recipe permanently from the database.</li>
+                            <li><strong>View recipe details:</strong> Access detailed information about any recipe.</li>
+                        </ul>
+                        <p>Effective recipe management ensures that content remains fresh and relevant, contributing to a
+                            positive user experience. Carefully review recipes before making changes.</p>
+                    </fieldset>
+                    </div>
 
                 <div id="manage-categories" class="section card-panel">
-                    <h4 class="text-primary text-shadow"><i class="fa-solid fa-layer-group icon"></i>
-                        Manage Categories
-                    </h4>
-                    <p>Manage recipe categories to organise content effectively. You can add new categories, edit
-                        existing ones, delete categories, and view all categories currently in use.</p>
-                    <ul>
-                        <li><strong>Add a new category:</strong> Create a new category for recipes.</li>
-                        <li><strong>Edit a category:</strong> Modify the name or details of an existing category.</li>
-                        <li><strong>Delete a category:</strong> Remove a category along with an option to remove all 
-                            recipes assigned to the ctegory.</li>
-                        <li><strong>View all categories:</strong> See a list of all categories currently available.</li>
-                    </ul>
-                    <p>Categories play a vital role in organising recipes effectively. Ensure changes align with the
-                        site's content structure and user expectations.</p>
-                </div>
+                    <fieldset>
+                        <legend>
+                            <h4 class="text-primary text-shadow">
+                                <a href="#manage-categories">
+                                    <i class="fa-solid fa-layer-group icon"></i>
+                                    Manage Categories
+                                </a>
+                            </h4>
+                        </legend>
+                        <p>Manage recipe categories to organise content effectively. You can add new categories, edit
+                            existing ones, delete categories, and view all categories currently in use.</p>
+                        <ul>
+                            <li><strong>Add a new category:</strong> Create a new category for recipes.</li>
+                            <li><strong>Edit a category:</strong> Modify the name or details of an existing category.</li>
+                            <li><strong>Delete a category:</strong> Remove a category along with an option to remove all
+                                recipes assigned to the ctegory.</li>
+                            <li><strong>View all categories:</strong> See a list of all categories currently available.</li>
+                        </ul>
+                        <p>Categories play a vital role in organising recipes effectively. Ensure changes align with the
+                            site's content structure and user expectations.</p>
+                    </fieldset>
+                    </div>
 
                 <div id="manage-users" class="section card-panel">
-                    <h4 class="text-primary text-shadow">
-                        <i class="fa-solid fa-users-gear icon"></i>
-                        Manage Users
-                    </h4>
-                    <p>Administer user accounts and roles to maintain site security and functionality. You can view all
-                        registered users, update their roles (e.g. from user to admin), and delete user accounts as
-                        needed.</p>
-                    <ul>
-                        <li><strong>View all users:</strong> Access a list of all registered users on the site.</li>
-                        <li><strong>Edit user roles:</strong> Update user roles to grant or restrict access to specific
-                            site features.</li>
-                        <li><strong>Delete a user:</strong> Permanently remove a user account from the system, option 
-                            to remove all recipes created by the user.</li>
-                    </ul>
-                    <p>Managing user accounts and roles is crucial for maintaining site security and ensuring a positive
-                        user experience. Handle user data with care and respect user privacy at all times.</p>
+                    <fieldset>
+                        <legend>
+                            <h4 class="text-primary text-shadow">
+                                <a href="{{ url_for('user_roles') }}">
+                                    <i class="fa-solid fa-users-gear icon"></i>
+                                    Manage Users
+                                </a>
+                            </h4>
+                        </legend>
+                        <p>Administer user accounts and roles to maintain site security and functionality. You can view all
+                            registered users, update their roles (e.g. from user to admin), and delete user accounts as
+                            needed.</p>
+                        <ul>
+                            <li><strong>View all users:</strong> Access a list of all registered users on the site.</li>
+                            <li><strong>Edit user roles:</strong> Update user roles to grant or restrict access to specific
+                                site features.</li>
+                            <li><strong>Delete a user:</strong> Permanently remove a user account from the system, option
+                                to remove all recipes created by the user.</li>
+                        </ul>
+                        <p>Managing user accounts and roles is crucial for maintaining site security and ensuring a positive
+                            user experience. Handle user data with care and respect user privacy at all times.</p>
+                    </fieldset>
                 </div>
-
                 {% endblock %}
             </div>
         </div>
