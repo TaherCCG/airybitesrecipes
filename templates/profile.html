@@ -1,16 +1,108 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 {% block content %}
 <div class="container">
-<div class="row">
-    <div class="col s12 m8 offset-m2">
-        <div class="card-panel">
-            <h3 class="center-align text-shadow">
-                {{ username }}'s Profile
-            </h3>           
+    <div class="row">
+        <div class="col s12 m8 offset-m2">
+            <div class="card-panel">
+                <h3 class="center-align text-shadow">Your Profile</h3>
+                <div class="center-align">
+                    <img src="{{ url_for('static', filename='images/placeholder_user.png') }}" 
+                        alt="Profile Picture" class="circle responsive-img profile-image">
+                </div>
+                <div class="section">
+                    <p>Username: {{ username }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col s12">
+            <h5>Your Recipes</h5>
+            {% if recipes|length == 0 %}
+                <div class="card-panel">
+                    <p>You don't have any recipes yet. Click the button below to create your first recipe.</p>
+                    <a href="{{ url_for('add_recipe') }}" class="btn">Create Recipe</a>
+                    <a href="{{ url_for('get_recipes') }}" class="btn">Browse Recipe</a>
+                </div>
+            {% else %}
+                <table class="striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recipe in recipes %}
+                        <tr>
+                            <td>{{ recipe.recipe_title }}</td>
+                            <td>{{ recipe.recipe_description }}</td>
+                            <td>{{ recipe.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td>
+                                <a href="#recipe-modal-{{ recipe._id }}" class="btn-small modal-trigger">View Recipe</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
         </div>
     </div>
 </div>
 
+<!-- Recipe Details Modal -->
+{% for recipe in recipes %}
+<div id="recipe-modal-{{ recipe._id }}" class="modal container">
+    <div class="modal-content">
+        <h4 class="text-primary text-shadow">{{ recipe.recipe_title }}</h4>
+        <div class="card-panel">
+            <h5 class="text-secondary text-secondary">Description</h5>
+            <p>{{ recipe.recipe_description }}</p>
+            <p>Cook Time: {{ recipe.cook_time }} minutes</p>
+            <p>Prep Time: {{ recipe.prep_time }} minutes</p>
+            <p>Total Time: {{ recipe.total_time }} minutes</p>
+            <p>Servings: {{ recipe.servings }}</p>
+        </div>
+        <div class="card-panel">
+        <h5 class="text-secondary text-shadow">Instructions:</h5>
+            <ul>
+                {% for instruction in recipe.instructions %}
+                    <li>{{ instruction }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-panel">
+            <h5 class="text-secondary text-shadow">Ingredients:</h5>
+            <ul>
+                {% for ingredient in recipe.ingredients %}
+                    <li>{{ get_ingredient_name(ingredient.ingredient_id) }} - {{ ingredient.quantity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"
+            class="modal-close btn-small">Edit</a>
+        <a href="#delete-modal-{{ recipe._id }}" class="modal-trigger btn-small red">Delete</a>
+    </div>
 </div>
 
+<!-- Delete Confirmation Modal -->
+<div id="delete-modal-{{ recipe._id }}" class="modal">
+    <div class="modal-content">
+        <h4>Confirm Delete</h4>
+        <p>Are you sure you want to delete the recipe "{{ recipe.recipe_title }}"?</p>
+        <p class="helper-text grey-text">This action can not be undone.</p>
+    </div>
+    <div class="modal-footer">
+        <form action="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" method="POST">
+            <button type="submit" class="modal-close btn-small red">Delete</button>
+            <button type="button" class="modal-close btn-small">Cancel</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
 {% endblock %}

@@ -181,6 +181,11 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
+/* Profile Styling */
+.profile-image {
+    width: 100px;
+    height: 100px;
+}
 /* Admin main content starts below the admin navbar */
 .admin-nav {
     background-color: var(--secondary-colour);

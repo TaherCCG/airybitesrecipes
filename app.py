@@ -165,7 +165,9 @@ def profile(username):
     # Get username session username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    return render_template("profile.html", username=username)
+     # Fetch the user's recipes from the database
+    recipes = list(mongo.db.recipes.find({"created_by": username}))
+    return render_template("profile.html", username=username, recipes=recipes)
 
 
 # Route to remove user from session 
