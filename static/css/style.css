@@ -22,6 +22,13 @@ body {
     font-family: var(--secondary-font);
     background-color: var(--neutral-colour);
     color: var(--dark-colour);
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
 }
 
 h1,
@@ -140,12 +147,12 @@ nav ul li a:hover {
 }
 
 /* Register Page */
-/* label focus color */
+/* Label focus color */
 .input-field input:focus+label {
     color: red !important;
 }
 
-/* label underline focus color */
+/* Label underline focus color */
 .row .input-field input:focus {
     border-bottom: 1px solid red !important;
     box-shadow: 0 1px 0 0 red !important
@@ -156,6 +163,7 @@ nav ul li a:hover {
     font-family: var(--primary-font);
     color: var(--accent-colour);
     text-align: center;
+    background-color: var(--secondary-colour);
 }
 
 .collapsible-header {
@@ -168,35 +176,17 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
-#admin-nav {
-    position: fixed;
-    top: 20;
-    left: 0;
-    max-width: 200px;
-    height: auto; 
-    overflow-y: auto;
-    background-color: #f0f0f0; 
-    border-right: 1px solid #ccc; 
+/* Admin main content starts below the admin navbar */
+.admin-main-content {
+    margin-top: 64px; 
 }
 
-#admin-nav .collection-item {
-    padding: 10px 20px;
-    font-size: 1rem;
+/* Responsive adjustments */
+@media screen and (max-width: 992px) {
+    .nav-content {
+        padding: 10px 0; 
+    }
 }
-
-#admin-nav .collection-item a {
-    color: #000;
-    display: block;
-}
-
-#admin-nav .collection-item:hover {
-    background-color: #eee;
-    cursor: pointer;
-}
-
-/* .col.s9 {
-    margin-left: 250px;
-} */
 
 .text-highlight {
     font-family: var(--primary-font);
