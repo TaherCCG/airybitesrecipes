@@ -214,18 +214,6 @@ nav ul li a:hover {
     margin: 20px auto;
 }
 
-/* Register Page */
-/* Label focus color */
-.input-field input:focus+label {
-    color: red !important;
-}
-
-/* Label underline focus color */
-.row .input-field input:focus {
-    border-bottom: 1px solid red !important;
-    box-shadow: 0 1px 0 0 red !important
-}
-
 .flashes h4 {
     line-height: 2;
     font-family: var(--primary-font);
