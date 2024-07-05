@@ -83,6 +83,7 @@ a:hover {
 .card-panel {
     background-color: var(--neutral-colour);
     border: 1px solid var(--secondary-colour);
+    border-radius: 5px;
     color: var(--dark-colour);
 }
 
@@ -102,6 +103,10 @@ a:hover {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
+.container {
+    background-color: var(--secondary-colour);
+    border-radius: 5px;
+}
 /* Nav Styling */
 nav {
     background-color: var(--primary-colour);
@@ -177,8 +182,17 @@ nav ul li a:hover {
 }
 
 /* Admin main content starts below the admin navbar */
+.admin-nav {
+    background-color: var(--secondary-colour);
+    color:var(--accent-colour)
+}
+
 .admin-main-content {
     margin-top: 64px; 
+}
+
+.nav-link a:hover {
+    color:var(--accent-colour)
 }
 
 /* Responsive adjustments */
