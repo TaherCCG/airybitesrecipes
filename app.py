@@ -176,7 +176,7 @@ def logout():
     # Remove user session (logout)
     flash("You have logged out")
     session.pop("user")
-    return redirect(url_for("login"))
+    return redirect(url_for("get_recipes"))
 
 
 # Ref 1: https://flask-pymongo.readthedocs.io/en/latest/
