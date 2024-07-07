@@ -28,6 +28,17 @@ def before_request():
             g.user_role = user.get('role', 'user')
 
 
+# Decorator to check if the user is logged in
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            flash("You need to be logged in to access this page.")
+            return redirect(url_for("login"))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 # Decorated function to check if user is admin or not
 def admin_required(f):
     @wraps(f)
@@ -41,6 +52,7 @@ def admin_required(f):
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
     return check_role
+
 
 # Route to display recipes
 @app.route("/")
@@ -161,6 +173,7 @@ def login():
 
 # Route to display user profile page
 @app.route("/profile/<username>", methods=["GET", "POST"])
+@login_required
 def profile(username):
     # Get username session username from the database
     username = mongo.db.users.find_one(
@@ -172,6 +185,7 @@ def profile(username):
 
 # Route to remove user from session 
 @app.route("/logout")
+@login_required
 def logout():
     # Remove user session (logout)
     flash("You have logged out")
@@ -197,6 +211,7 @@ app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
 
 # Route to add recipe to the database
 @app.route("/add_recipe", methods=["GET", "POST"])
+@login_required
 def add_recipe():
     if request.method == "POST":
         category = request.form["category_name"]
@@ -257,6 +272,7 @@ def add_recipe():
 
 # Edit / Update recipe  
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+@login_required
 def edit_recipe(recipe_id):
     if request.method == "POST":
         category = request.form["category_name"]
@@ -277,7 +293,7 @@ def edit_recipe(recipe_id):
         ingredient_refs = []
 
         for name, quantity in zip(ingredient_names, ingredient_quantities):
-            ingredient = mongo.db.ingredients.find_one({"ing_name": name})  # Use "ing_name" here
+            ingredient = mongo.db.ingredients.find_one({"ing_name": name}) 
             if not ingredient:
                 ingredient_id = mongo.db.ingredients.insert_one({"ing_name": name}).inserted_id  # Insert new ingredient
             else:
@@ -318,6 +334,7 @@ def edit_recipe(recipe_id):
 
 # Delete Recipe
 @app.route("/delete_recipe/<recipe_id>", methods=["POST"])
+@login_required
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
