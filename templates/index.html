@@ -59,7 +59,9 @@
                     <h3>Instructions</h3>
                     <ol>
                         {% for instruction in recipe.instructions %}
-                            <li>{{ instruction }}</li>
+                            {% if instruction.strip() %}
+                                <li>{{ instruction }}</li>
+                            {% endif %}
                         {% endfor %}
                     </ol>
                     </div>
