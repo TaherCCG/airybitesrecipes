@@ -92,6 +92,11 @@ a:hover {
     display:flex;
 }
 
+.remove-ingredient-div {
+    display: flex;
+    align-items: center;
+}
+
 .header,
 .footer {
     background-color: var(--dark-colour);
