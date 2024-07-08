@@ -71,16 +71,19 @@
                 <div id="ingredients">
                     {% for ingredient_ref in recipe.ingredients %}
                         <div class="row ingredient">
-                            <div class="input-field col s6">
+                            <div class="input-field col s5">
                                 <i class="fas fa-utensils icon prefix"></i>
                                 <input type="text" id="ingredient_name_{{ loop.index }}" name="ingredient_name[]" 
                                     class="validate" value="{{ get_ingredient_name(ingredient_ref.ingredient_id) }}" required>
                                 <label for="ingredient_name_{{ loop.index }}" class="active">Ingredient Name</label>
                             </div>
-                            <div class="input-field col s6">
+                            <div class="input-field col s5">
                                 <input type="text" id="ingredient_quantity_{{ loop.index }}" name="ingredient_quantity[]"
                                     class="validate" value="{{ ingredient_ref.quantity }}" required>
                                 <label for="ingredient_quantity_{{ loop.index }}" class="active">Quantity</label>
+                            </div>
+                            <div class="input-field col s2 remove-ingredient-div" style="display: flex; align-items: center;">
+                                <button type="button" class="btn remove-ingredient-btn">X</button>
                             </div>
                         </div>
                     {% endfor %}
