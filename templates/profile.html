@@ -18,7 +18,10 @@
     
     <div class="row">
         <div class="col s12">
-            <h5>Your Recipes</h5>
+            <fieldset>
+            <legend>
+                <h5 class="text-primary text-shadow" >Your Recipes</h5>
+            </legend>
             {% if recipes|length == 0 %}
                 <div class="card-panel">
                     <p>You don't have any recipes yet. Click the button below to create your first recipe.</p>
@@ -40,15 +43,16 @@
                         <tr>
                             <td>{{ recipe.recipe_title }}</td>
                             <td>{{ recipe.recipe_description }}</td>
-                            <td>{{ recipe.created_at.strftime('%Y-%m-%d') }}</td>
+                            <td>{{ recipe.created_at.strftime('%d-%m-%Y') }}</td>
                             <td>
-                                <a href="#recipe-modal-{{ recipe._id }}" class="btn-small modal-trigger">View Recipe</a>
+                                <a href="#recipe-modal-{{ recipe._id }}" class="btn-small modal-trigger">View</a>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             {% endif %}
+            </fieldset>
         </div>
     </div>
 </div>
