@@ -50,6 +50,7 @@ a:hover {
     color: var(--secondary-colour);
 }
 
+/* Buttons */
 .button-primary {
     background-color: var(--primary-colour);
     color: var(--neutral-colour);
@@ -71,6 +72,24 @@ a:hover {
 .btn-small {
     background-color: var(--accent-colour);
     margin-bottom: 25px;
+}
+
+.remove-ingredient-btn {
+    background-color: red;
+    border-radius: 50%;
+    color: var(--neutral-colour);
+    font-weight: bold;
+}
+
+.remove-ingredient-btn:hover {
+    background-color: rgb(121, 5, 5);
+}
+
+.remove-ingredient-span {
+    display:none;
+}
+.remove-ingredient-span:hover {
+    display:flex;
 }
 
 .header,
@@ -282,4 +301,5 @@ fieldset {
     color: var(--dark-colour);
     padding: 15px;
 }
+
 
