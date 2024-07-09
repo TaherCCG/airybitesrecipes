@@ -94,6 +94,7 @@ window.showDeleteModal = function (userId) {
     instance.open();
 }
 
+// Check if recipes are checked/true for deletion too
 window.confirmDelete = function () {
     const deleteRecipes = document.getElementById('deleteRecipesCheckbox').checked;
     document.getElementById('deleteRecipesInput').value = deleteRecipes ? 'true' : 'false';
@@ -104,4 +105,14 @@ window.confirmDelete = function () {
     const modal = document.getElementById('deleteUserModal');
     const instance = M.Modal.getInstance(modal);
     instance.close();
+}
+
+// Function to manage the Edit Category modal
+window.showEditModal = function (categoryId, categoryName) {
+    document.getElementById('edit_category_id').value = categoryId;
+    document.getElementById('edit_category_name').value = categoryName;
+    M.updateTextFields();  // Ensure labels are correctly positioned
+    const editModal = document.getElementById('edit-category-modal');
+    const instance = M.Modal.getInstance(editModal);
+    instance.open();
 }
