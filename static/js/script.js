@@ -107,12 +107,20 @@ window.confirmDelete = function () {
     instance.close();
 }
 
-// Function to manage the Edit Category modal
+// Function to manage the 'Edit Category' modal
 window.showEditModal = function (categoryId, categoryName) {
     document.getElementById('edit_category_id').value = categoryId;
     document.getElementById('edit_category_name').value = categoryName;
     M.updateTextFields();  // Ensure labels are correctly positioned
     const editModal = document.getElementById('edit-category-modal');
     const instance = M.Modal.getInstance(editModal);
+    instance.open();
+}
+
+// Function to Manage 'Delete Category' modal
+window.showDeleteCategoryModal = function (categoryId) {
+    document.getElementById('delete_category_id').value = categoryId;
+    const deleteModal = document.getElementById('delete-category-modal');
+    const instance = M.Modal.getInstance(deleteModal);
     instance.open();
 }

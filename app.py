@@ -391,7 +391,20 @@ def edit_category():
         flash("Category updated successfully.", "success")
     else:
         flash("Category name is required.", "error")
-    return redirect(url_for("get_categories"))    
+    return redirect(url_for("get_categories"))
+
+
+# Route to delete category
+@app.route("/delete_category", methods=["POST"])
+@admin_required
+def delete_category():
+    category_id = request.form.get("category_id")
+    if category_id:
+        mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
+        flash("Category deleted successfully.", "success")
+    else:
+        flash("Category ID is required.", "error")
+    return redirect(url_for("get_categories"))
 
 
 if __name__ == "__main__":

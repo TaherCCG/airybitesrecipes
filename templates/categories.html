@@ -38,7 +38,7 @@
                         <td>{{ category.recipe_count }}</td>
                         <td>
                             <a href="#" class="btn-small" onclick="showEditModal('{{ category._id }}', '{{ category.category_name }}')">Edit</a>
-                            <a href="#" class="btn-small red">Delete</a>
+                            <a href="#" class="btn-small red" onclick="showDeleteCategoryModal('{{ category._id }}')">Delete</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -82,6 +82,19 @@
         </form>
     </div>
 </div>
-
+<!-- Delete Category Modal -->
+<aside id="delete-category-modal" class="modal">
+    <div class="modal-content">
+        <h4>Delete Category</h4>
+        <p>Are you sure you want to delete this category?</p>
+    </div>
+    <div class="modal-footer">
+        <form id="delete-category-form" action="{{ url_for('delete_category') }}" method="POST">
+            <input type="hidden" id="delete_category_id" name="category_id">
+            <button type="button" class="modal-close waves-effect waves-red btn-flat">Cancel</button>
+            <button type="submit" class="waves-effect waves-green btn">Delete</button>
+        </form>
+    </div>
+</aside>
 
 {% endblock %}
