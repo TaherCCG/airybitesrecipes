@@ -13,7 +13,7 @@ Admin Panel
                 </a>
             </li>
             <li class="nav-link">
-                <a href="#manage-categories" aria-label="Go to manage categories as admin.">
+                <a href="{{ url_for('get_categories') }}" aria-label="Go to manage categories as admin.">
                     Manage Categories
                 </a>
             </li>
@@ -37,7 +37,8 @@ Admin Panel
                     <fieldset>
                         <legend>
                             <h4 class="text-shadow">
-                                <a href="{{ url_for('admin_panel') }}">
+                                <a href="{{ url_for('admin_panel') }}" 
+                                    aria-label="Go back to admin panel.">
                                     <i class="fa-solid fa-user-tie icon"></i>
                                     Admin Panel
                                 </a>
@@ -57,7 +58,8 @@ Admin Panel
                     <fieldset>
                         <legend>
                             <h4 class="text-primary text-shadow">
-                                <a href="#manage-recipes">
+                                <a href="" 
+                                    aria-label="Go to manage recipes as admin.">
                                     <i class="fa-solid fa-book icon"></i>
                                     Manage Recipes
                                 </a>
@@ -79,7 +81,8 @@ Admin Panel
                     <fieldset>
                         <legend>
                             <h4 class="text-primary text-shadow">
-                                <a href="#manage-categories">
+                                <a href="{{ url_for('get_categories') }}" 
+                                    aria-label="Go to manage categories as admin.">
                                     <i class="fa-solid fa-layer-group icon"></i>
                                     Manage Categories
                                 </a>
@@ -103,7 +106,7 @@ Admin Panel
                     <fieldset>
                         <legend>
                             <h4 class="text-primary text-shadow">
-                                <a href="{{ url_for('user_roles') }}">
+                                <a href="{{ url_for('user_roles') }}" aria-label="Go to manage users as admin.">
                                     <i class="fa-solid fa-users-gear icon"></i>
                                     Manage Users
                                 </a>
