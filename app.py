@@ -357,6 +357,7 @@ def get_categories():
     return render_template("categories.html", categories=categories)
 
 
+# Route to Add Category
 @app.route("/add_category", methods=["POST"])
 @admin_required
 def add_category():
@@ -371,12 +372,26 @@ def add_category():
                 flash(f"Category '{category_name}' added successfully.", "success")
         else:
             flash("Category name is required.", "error")
-            return redirect(url_for("get_categories"))  # Redirect to the same page to display the error
+            return redirect(url_for("get_categories")) 
     
-    return redirect(url_for("get_categories"))  # Redirect to the category page after processing
+    return redirect(url_for("get_categories"))
 
 
-    
+# Route to edit category 
+@app.route("/edit_category", methods=["POST"])
+@admin_required
+def edit_category():
+    category_id = request.form.get("category_id")
+    category_name = request.form.get("category_name")
+    if category_id and category_name:
+        mongo.db.categories.update_one(
+            {"_id": ObjectId(category_id)},
+            {"$set": {"category_name": category_name}}
+        )
+        flash("Category updated successfully.", "success")
+    else:
+        flash("Category name is required.", "error")
+    return redirect(url_for("get_categories"))    
 
 
 if __name__ == "__main__":
