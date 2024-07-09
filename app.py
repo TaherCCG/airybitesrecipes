@@ -33,7 +33,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
-            flash("You need to be logged in to access this page.")
+            flash("You need to be logged in to access this page.", "error")
             return redirect(url_for("login"))
         return f(*args, **kwargs)
     return decorated_function
@@ -44,11 +44,11 @@ def admin_required(f):
     @wraps(f)
     def check_role(*args, **kwargs):
         if 'user' not in session:
-            flash("You need to be logged in to access this page.")
+            flash("You need to be logged in to access this page.", "error")
             return redirect(url_for("login"))
         user = mongo.db.users.find_one({"username": session['user']})
         if not user or user.get('role') != 'admin':
-            flash("You do not have the necessary permissions to access this page.")
+            flash("You do not have the necessary permissions to access this page.", "error")
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
     return check_role
@@ -71,7 +71,7 @@ def register():
         confirm_password = request.form["confirm_password"]
 
         if password != confirm_password:
-            flash("Passwords do not match. Please try again.", "error")
+            flash("Passwords do not match. Please try again.", "warning")
             return redirect(url_for("register"))
 
         # Check if username already exists in db
@@ -79,7 +79,7 @@ def register():
             {"username": request.form.get("username").lower()})
 
         if existing_user:
-            flash("Username already exists.<br>Please choose another username.")
+            flash("Username already exists.<br>Please choose another username.", "warning")
             return redirect(url_for("register"))
 
         # Set default role to user
@@ -94,7 +94,7 @@ def register():
 
         # Put new User into Session (cookie)
         session["user"] = request.form.get("username").lower()
-        flash("Registration Successful!")
+        flash("Registration Successful!", "success")
         return redirect(url_for("profile", username=session["user"]))
     return render_template("register.html")
 
@@ -136,7 +136,10 @@ def delete_user(user_id):
         if delete_recipes:
             mongo.db.recipes.delete_many({"created_by": user["username"]})
         
-        flash("User and their recipes successfully deleted" if delete_recipes else "User successfully deleted")
+        if delete_recipes:
+            flash("User and their recipes successfully deleted", "success")
+        else:
+            flash("User successfully deleted", "success")
     else:
         flash("User not found.", "error")
     
@@ -156,16 +159,16 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")))
+                flash("Welcome, {}".format(request.form.get("username")),"success")
                 return redirect(url_for("profile", username=session["user"]))
             else:
                 # Password not match to user message
-                flash("Incorrect Username and/or Password! <br> Please check and try again.")
+                flash("Incorrect Username and/or Password! Please check and try again.", "warning")
                 return redirect(url_for("login"))
 
         else:
             # User does not exist
-            flash("Incorrect Username and/or Password! <br> Please check and try again.")
+            flash("Incorrect Username and/or Password! Please check and try again.", "warning")
             return redirect(url_for("login"))
 
     return render_template("login.html")
@@ -188,7 +191,7 @@ def profile(username):
 @login_required
 def logout():
     # Remove user session (logout)
-    flash("You have logged out")
+    flash("You have logged out","success")
     session.pop("user")
     return redirect(url_for("get_recipes"))
 
@@ -263,7 +266,7 @@ def add_recipe():
             "created_by": session["user"]
         }
         mongo.db.recipes.insert_one(recipe)
-        flash("Recipe Successfully Added")
+        flash("Recipe Successfully Added", "success")
         return redirect(url_for("get_recipes"))
 
     categories = mongo.db.categories.find().sort("category_name", 1)
@@ -325,7 +328,7 @@ def edit_recipe(recipe_id):
         }
 
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": update})
-        flash("Recipe Successfully Updated")
+        flash("Recipe Successfully Updated", "success")
         return redirect(url_for("get_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
@@ -337,8 +340,43 @@ def edit_recipe(recipe_id):
 @login_required
 def delete_recipe(recipe_id):
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
-    flash("Recipe Successfully Deleted")
+    flash("Recipe Successfully Deleted", "success")
     return redirect(url_for("get_recipes"))
+
+
+@app.route("/get_categories")
+@admin_required
+def get_categories():
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    
+    # Iterate categories and add recipe count
+    for category in categories:
+        recipe_count = mongo.db.recipes.count_documents({"category": category['category_name']})
+        category['recipe_count'] = recipe_count
+    
+    return render_template("categories.html", categories=categories)
+
+
+@app.route("/add_category", methods=["POST"])
+@admin_required
+def add_category():
+    if request.method == "POST":
+        category_name = request.form.get("category_name")
+        if category_name:
+            existing_category = mongo.db.categories.find_one({"category_name": category_name})
+            if existing_category:
+                flash(f"Category '{category_name}' already exists.", "warning")
+            else:
+                mongo.db.categories.insert_one({"category_name": category_name})
+                flash(f"Category '{category_name}' added successfully.", "success")
+        else:
+            flash("Category name is required.", "error")
+            return redirect(url_for("get_categories"))  # Redirect to the same page to display the error
+    
+    return redirect(url_for("get_categories"))  # Redirect to the category page after processing
+
+
+    
 
 
 if __name__ == "__main__":
