@@ -324,12 +324,12 @@ def edit_recipe(recipe_id):
             "ingredients": ingredient_refs,
             "created_at": created_at,
             "updated_at": updated_at,
-            "created_by": session["user"]
         }
 
         mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": update})
         flash("Recipe Successfully Updated", "success")
-        return redirect(url_for("get_recipes"))
+        # Redirect to manage_recipes.html after updating the recipe
+        return redirect(url_for("manage_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
@@ -405,6 +405,19 @@ def delete_category():
     else:
         flash("Category ID is required.", "error")
     return redirect(url_for("get_categories"))
+
+
+@app.route("/manage_recipes")
+@login_required
+def manage_recipes():
+    user = mongo.db.users.find_one({"username": session['user']})
+    if not user or user.get('role') != 'admin':
+        return redirect(url_for("get_recipes"))  # Redirect regular users to get_recipes.html
+
+    recipes = list(mongo.db.recipes.find())
+    return render_template("manage_recipes.html", recipes=recipes)
+
+
 
 
 if __name__ == "__main__":
