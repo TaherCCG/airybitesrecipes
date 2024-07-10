@@ -18,10 +18,15 @@
     --font-size-xlarge: 24px;
 }
 
+html {
+    font-size: calc(60% + 0.8vmin);
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-size: 1rem;
 }
 
 body {
@@ -308,6 +313,10 @@ fieldset {
 @media screen and (max-width: 992px) {
     .nav-content {
         padding: 10px 0; 
+    }
+    
+    .hide-on-small-screen {
+        display: none;
     }
 }
 

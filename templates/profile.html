@@ -34,8 +34,8 @@
                         <tr>
                             <th>Title</th>
                             <th>Description</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
+                            <th class="hide-on-small-screen">Created At</th>
+                            <th class="hide-on-small-screen">Updated At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -44,8 +44,8 @@
                         <tr>
                             <td>{{ recipe.recipe_title }}</td>
                             <td>{{ recipe.recipe_description }}</td>
-                            <td>{{ recipe.created_at}}</td>
-                            <td>{{ recipe.updated_at}}</td>
+                            <td class="hide-on-small-screen">{{ recipe.created_at}}</td>
+                            <td class="hide-on-small-screen">{{ recipe.updated_at}}</td>
                             <td>
                                 <a href="#recipe-modal-{{ recipe._id }}" class="btn-small modal-trigger">View</a>
                             </td>
