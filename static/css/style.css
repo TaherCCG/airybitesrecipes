@@ -1,4 +1,4 @@
-/*  Root Styling */
+/* Root Styling */
 :root {
     /* Colours */
     --primary-colour: #FF6F61;
@@ -18,6 +18,12 @@
     --font-size-xlarge: 24px;
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: var(--secondary-font);
     background-color: var(--neutral-colour);
@@ -25,10 +31,12 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 main {
     flex: 1 0 auto;
+    width: 100%;
 }
 
 h1,
@@ -53,7 +61,7 @@ a:hover {
 /* Buttons */
 .button-primary {
     background-color: var(--primary-colour);
-    color: var(--neutral-colour);
+    color: var (--neutral-colour);
     font-family: var(--primary-font);
     font-weight: bold;
 }
@@ -94,7 +102,6 @@ a:hover {
     align-items: center;
 }
 
-
 .header,
 .footer {
     background-color: var(--dark-colour);
@@ -106,7 +113,7 @@ a:hover {
     background-color: var(--neutral-colour);
     border: 1px solid var(--secondary-colour);
     border-radius: 5px;
-    color: var(--dark-colour);
+    color: var (--dark-colour);
 }
 
 .card-title {
@@ -133,11 +140,17 @@ a:hover {
 .container {
     background-color: var(--secondary-colour);
     border-radius: 5px;
+    overflow-x: hidden;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
+
 /* Nav Styling */
 nav {
     background-color: var(--primary-colour);
     padding: 1em;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 nav ul {
@@ -145,6 +158,7 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
 }
 
 nav ul li {
@@ -273,7 +287,7 @@ nav ul li a:hover {
 /* Admin main content starts below the admin navbar */
 .admin-nav {
     background-color: var(--secondary-colour);
-    color:var(--accent-colour)
+    color: var(--accent-colour)
 }
 
 .admin-main-content {
@@ -281,7 +295,7 @@ nav ul li a:hover {
 }
 
 .nav-link a:hover {
-    color:var(--accent-colour)
+    color: var(--accent-colour)
 }
 
 fieldset {
