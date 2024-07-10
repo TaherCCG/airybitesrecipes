@@ -18,6 +18,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+
 # Check user role before each request
 @app.before_request
 def before_request():
@@ -48,7 +49,9 @@ def admin_required(f):
             return redirect(url_for("login"))
         user = mongo.db.users.find_one({"username": session['user']})
         if not user or user.get('role') != 'admin':
-            flash("You do not have the necessary permissions to access this page.", "error")
+            flash(
+                f"""You do not have the necessary permissions"
+                " to access this page.","error""")
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
     return check_role
@@ -59,7 +62,9 @@ def admin_required(f):
 @app.route("/get_recipes")
 def get_recipes():
     recipes = mongo.db.recipes.find()
-    return render_template("index.html", recipes=recipes, get_ingredient_name=get_ingredient_name)
+    return render_template(
+        "index.html", recipes=recipes,
+        get_ingredient_name=get_ingredient_name)
 
 
 # Route to display registration page
@@ -79,7 +84,8 @@ def register():
             {"username": request.form.get("username").lower()})
 
         if existing_user:
-            flash("Username already exists.<br>Please choose another username.", "warning")
+            flash(f"""Username already exists. "
+                "Please choose another username.", "warning""")
             return redirect(url_for("register"))
 
         # Set default role to user
@@ -114,14 +120,18 @@ def user_roles():
     users = mongo.db.users.find()
     return render_template('user_roles.html', users=users)
 
+
 # Update User Role
 @app.route('/update_role/<user_id>', methods=['POST'])
 @admin_required
 def update_role(user_id):
     new_role = request.form['role']
-    mongo.db.users.update_one({"_id": ObjectId(user_id)}, {"$set": {"role": new_role}})
+    mongo.db.users.update_one({
+        "_id": ObjectId(user_id)},
+        {"$set": {"role": new_role}})
     flash("User role updated.", "success")
     return redirect(url_for('user_roles'))
+
 
 # Delete User
 @app.route("/delete_user/<user_id>", methods=["POST"])
@@ -129,20 +139,20 @@ def update_role(user_id):
 def delete_user(user_id):
     delete_recipes = request.form.get('delete_recipes') == 'true'
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-    
+
     if user:
         mongo.db.users.delete_one({"_id": ObjectId(user_id)})
-        
+
         if delete_recipes:
             mongo.db.recipes.delete_many({"created_by": user["username"]})
-        
+
         if delete_recipes:
             flash("User and their recipes successfully deleted", "success")
         else:
             flash("User successfully deleted", "success")
     else:
         flash("User not found.", "error")
-    
+
     return redirect(url_for("user_roles"))
 
 
@@ -150,7 +160,7 @@ def delete_user(user_id):
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-         # Check if username already exists in db
+        # Check if username already exists in db
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
@@ -159,16 +169,20 @@ def login():
             if check_password_hash(
                     existing_user["password"], request.form.get("password")):
                 session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")),"success")
+                flash("Welcome, {}".format(request.form.get("username")),
+                      "success")
                 return redirect(url_for("profile", username=session["user"]))
             else:
                 # Password not match to user message
-                flash("Incorrect Username and/or Password! Please check and try again.", "warning")
+                flash(
+                    f"""Incorrect Username and/or Password!"
+                    " Please check and try again.", "warning""")
                 return redirect(url_for("login"))
 
         else:
             # User does not exist
-            flash("Incorrect Username and/or Password! Please check and try again.", "warning")
+            flash(f"""Incorrect Username and/or Password!"
+                " Please check and try again.", "warning""")
             return redirect(url_for("login"))
 
     return render_template("login.html")
@@ -181,17 +195,17 @@ def profile(username):
     # Get username session username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-     # Fetch the user's recipes from the database
+    # Fetch the user's recipes from the database
     recipes = list(mongo.db.recipes.find({"created_by": username}))
     return render_template("profile.html", username=username, recipes=recipes)
 
 
-# Route to remove user from session 
+# Route to remove user from session
 @app.route("/logout")
 @login_required
 def logout():
     # Remove user session (logout)
-    flash("You have logged out","success")
+    flash("You have logged out", "success")
     session.pop("user")
     return redirect(url_for("get_recipes"))
 
@@ -199,16 +213,20 @@ def logout():
 # Ref 1: https://flask-pymongo.readthedocs.io/en/latest/
 # Helper function to get ingredient name by id
 def get_ingredient_name(ingredient_id):
-    ingredient = mongo.db.ingredients.find_one({"_id": ObjectId(ingredient_id)})
+    ingredient = mongo.db.ingredients.find_one({
+        "_id": ObjectId(ingredient_id)})
     if ingredient:
         return ingredient["ing_name"]
     return "Unknown Ingredient"
 
-# Below I registered the get_ingredient_name function as a global function in Jinja2 templates
-# This allows the function to be called directly within any Jinja2 template without
-# needing to pass it explicitly.
+# Below I registered the get_ingredient_name function as a global function
+# This allows the function to be called directly within any Jinja2 template
+# without needing to pass it explicitly.
 # Ref1: https://flask.palletsprojects.com/en/2.3.x/templating/
-# Ref2: https://stackoverflow.com/questions/43335931/global-variables-in-flask-templates
+# Ref2:
+# https://stackoverflow.com/questions/43335931/global-variables-in-flask-templates
+
+
 app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
 
 
@@ -234,9 +252,10 @@ def add_recipe():
         ingredient_refs = []
 
         for name, quantity in zip(ingredient_names, ingredient_quantities):
-            ingredient = mongo.db.ingredients.find_one({"ing_name": name})  # Use "ing_name" here
+            ingredient = mongo.db.ingredients.find_one({"ing_name": name})
             if not ingredient:
-                ingredient_id = mongo.db.ingredients.insert_one({"ing_name": name}).inserted_id  # Insert new ingredient
+                ingredient_id = mongo.db.ingredients.insert_one({
+                    "ing_name": name}).inserted_id
             else:
                 ingredient_id = ingredient["_id"]
             ingredient_refs.append({
@@ -269,7 +288,7 @@ def add_recipe():
     return render_template("add_recipe.html", categories=categories)
 
 
-# Edit / Update recipe  
+# Edit / Update recipe
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 @login_required
 def edit_recipe(recipe_id):
@@ -291,9 +310,10 @@ def edit_recipe(recipe_id):
         ingredient_refs = []
 
         for name, quantity in zip(ingredient_names, ingredient_quantities):
-            ingredient = mongo.db.ingredients.find_one({"ing_name": name}) 
+            ingredient = mongo.db.ingredients.find_one({"ing_name": name})
             if not ingredient:
-                ingredient_id = mongo.db.ingredients.insert_one({"ing_name": name}).inserted_id  # Insert new ingredient
+                ingredient_id = mongo.db.ingredients.insert_one({
+                    "ing_name": name}).inserted_id
             else:
                 ingredient_id = ingredient["_id"]
             ingredient_refs.append({
@@ -318,14 +338,18 @@ def edit_recipe(recipe_id):
             "updated_at": updated_at,
         }
 
-        mongo.db.recipes.update_one({"_id": ObjectId(recipe_id)}, {"$set": update})
+        mongo.db.recipes.update_one({
+            "_id": ObjectId(recipe_id)},
+            {"$set": update})
         flash("Recipe Successfully Updated", "success")
         # Redirect to manage_recipes.html after updating the recipe
         return redirect(url_for("manage_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("edit_recipe.html", recipe=recipe, categories=categories)
+    return render_template(
+        "edit_recipe.html", recipe=recipe, categories=categories)
+
 
 # Delete Recipe
 @app.route("/delete_recipe/<recipe_id>", methods=["POST"])
@@ -340,12 +364,13 @@ def delete_recipe(recipe_id):
 @admin_required
 def get_categories():
     categories = list(mongo.db.categories.find().sort("category_name", 1))
-    
+
     # Iterate categories and add recipe count
     for category in categories:
-        recipe_count = mongo.db.recipes.count_documents({"category": category['category_name']})
+        recipe_count = mongo.db.recipes.count_documents({
+            "category": category['category_name']})
         category['recipe_count'] = recipe_count
-    
+
     return render_template("categories.html", categories=categories)
 
 
@@ -356,20 +381,24 @@ def add_category():
     if request.method == "POST":
         category_name = request.form.get("category_name")
         if category_name:
-            existing_category = mongo.db.categories.find_one({"category_name": category_name})
+            existing_category = mongo.db.categories.find_one({
+                "category_name": category_name})
             if existing_category:
                 flash(f"Category '{category_name}' already exists.", "warning")
             else:
-                mongo.db.categories.insert_one({"category_name": category_name})
-                flash(f"Category '{category_name}' added successfully.", "success")
+                mongo.db.categories.insert_one({
+                    "category_name": category_name})
+                flash(
+                    f"""Category '{category_name}' added successfully."
+                    , "success""")
         else:
             flash("Category name is required.", "error")
-            return redirect(url_for("get_categories")) 
-    
+            return redirect(url_for("get_categories"))
+
     return redirect(url_for("get_categories"))
 
 
-# Route to edit category 
+# Route to edit category
 @app.route("/edit_category", methods=["POST"])
 @admin_required
 def edit_category():
@@ -404,11 +433,13 @@ def delete_category():
 def manage_recipes():
     user = mongo.db.users.find_one({"username": session['user']})
     if not user or user.get('role') != 'admin':
-        return redirect(url_for("get_recipes"))  # Redirect regular users to get_recipes.html
+        return redirect(url_for("get_recipes"))
 
     recipes = list(mongo.db.recipes.find())
     return render_template("manage_recipes.html", recipes=recipes)
 
 
 if __name__ == "__main__":
-    app.run(host=os.environ.get("IP"), port=int(os.environ.get("PORT")), debug=True)
+    app.run(host=os.environ.get("IP"),
+            port=int(os.environ.get("PORT")),
+            debug=True)
