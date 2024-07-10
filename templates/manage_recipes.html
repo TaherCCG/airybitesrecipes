@@ -49,18 +49,18 @@
             <p>Servings: {{ recipe.servings }}</p>
         </div>
         <div class="card-panel">
-            <h5>Instructions</h5>
-            <ul>
-                {% for instruction in recipe.instructions %}
-                <li>{{ instruction }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="card-panel">
             <h5>Ingredients</h5>
             <ul>
                 {% for ingredient in recipe.ingredients %}
                 <li>{{ get_ingredient_name(ingredient.ingredient_id) }} - {{ ingredient.quantity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-panel">
+            <h5>Instructions</h5>
+            <ul>
+                {% for instruction in recipe.instructions %}
+                <li>{{ instruction }}</li>
                 {% endfor %}
             </ul>
         </div>

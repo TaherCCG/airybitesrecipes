@@ -35,6 +35,7 @@
                             <th>Title</th>
                             <th>Description</th>
                             <th>Created At</th>
+                            <th>Updated At</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -43,7 +44,8 @@
                         <tr>
                             <td>{{ recipe.recipe_title }}</td>
                             <td>{{ recipe.recipe_description }}</td>
-                            <td>{{ recipe.created_at.strftime('%d-%m-%Y') }}</td>
+                            <td>{{ recipe.created_at.strftime('%d/%m/%Y') }}</td>
+                            <td>{{ recipe.updated_at.strftime('%d/%m/%Y') }}</td>
                             <td>
                                 <a href="#recipe-modal-{{ recipe._id }}" class="btn-small modal-trigger">View</a>
                             </td>
@@ -71,18 +73,18 @@
             <p>Servings: {{ recipe.servings }}</p>
         </div>
         <div class="card-panel">
-        <h5 class="text-secondary text-shadow">Instructions:</h5>
-            <ul>
-                {% for instruction in recipe.instructions %}
-                    <li>{{ instruction }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="card-panel">
             <h5 class="text-secondary text-shadow">Ingredients:</h5>
             <ul>
                 {% for ingredient in recipe.ingredients %}
                     <li>{{ get_ingredient_name(ingredient.ingredient_id) }} - {{ ingredient.quantity }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card-panel">
+        <h5 class="text-secondary text-shadow">Instructions:</h5>
+            <ul>
+                {% for instruction in recipe.instructions %}
+                    <li>{{ instruction }}</li>
                 {% endfor %}
             </ul>
         </div>
