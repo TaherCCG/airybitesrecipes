@@ -73,6 +73,10 @@ a:hover {
     background-color: var(--accent-colour);
     margin-bottom: 25px;
 }
+.btn-small:hover {
+    color: var(--dark-colour);
+    font-weight: bold;
+}
 
 .remove-ingredient-btn {
     background-color: red;
@@ -85,17 +89,11 @@ a:hover {
     background-color: rgb(121, 5, 5);
 }
 
-.remove-ingredient-span {
-    display:none;
-}
-.remove-ingredient-span:hover {
-    display:flex;
-}
-
 .remove-ingredient-div {
     display: flex;
     align-items: center;
 }
+
 
 .header,
 .footer {
@@ -318,4 +316,14 @@ fieldset {
     padding: 15px;
 }
 
+.modal {
+    background-color: var(--secondary-colour);
+}
 
+.modal .helper-text {
+    color: red;
+}
+
+.modal .modal-footer {
+    background-color: var(--dark-colour);
+}

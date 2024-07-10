@@ -44,64 +44,78 @@
             </div>
             <!-- Timers -->
             <div class="row card-panel">
-                <div class="input-field col s6">
-                    <i class="fas fa-stopwatch icon prefix"></i>
-                    <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe.cook_time }}" required>
-                    <label for="cook_time">Cook Time (minutes)</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="fas fa-stopwatch icon prefix"></i>
-                    <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe.prep_time }}" required>
-                    <label for="prep_time">Prep Time (minutes)</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="fas fa-thermometer-half icon prefix"></i>
-                    <input id="temperature" name="temperature" type="number" class="validate" value="{{ recipe.temperature }}" required>
-                    <label for="temperature">Temperature (°C)</label>
-                </div>
-                <div class="input-field col s12">
-                    <i class="fas fa-users icon prefix"></i>
-                    <input id="servings" name="servings" type="number" class="validate" value="{{ recipe.servings }}" required>
-                    <label for="servings">Servings</label>
-                </div>
+                <fieldset>
+                    <legend>
+                        <h3>Timers</h3>
+                    </legend>
+                    <div class="input-field col s6">
+                        <i class="fas fa-stopwatch icon prefix"></i>
+                        <input id="cook_time" name="cook_time" type="number" class="validate" value="{{ recipe.cook_time }}" required>
+                        <label for="cook_time">Cook Time (minutes)</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="fas fa-stopwatch icon prefix"></i>
+                        <input id="prep_time" name="prep_time" type="number" class="validate" value="{{ recipe.prep_time }}" required>
+                        <label for="prep_time">Prep Time (minutes)</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="fas fa-thermometer-half icon prefix"></i>
+                        <input id="temperature" name="temperature" type="number" class="validate" value="{{ recipe.temperature }}" required>
+                        <label for="temperature">Temperature (°C)</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="fas fa-users icon prefix"></i>
+                        <input id="servings" name="servings" type="number" class="validate" value="{{ recipe.servings }}" required>
+                        <label for="servings">Servings</label>
+                    </div>
+                </fieldset>
             </div>
             <!-- Ingreditents -->
             <div class="row card-panel">
-                <h2>Ingredients</h2>
-                <div id="ingredients">
-                    {% for ingredient_ref in recipe.ingredients %}
-                        <div class="row ingredient">
-                            <div class="input-field col s5">
-                                <i class="fas fa-utensils icon prefix"></i>
-                                <input type="text" id="ingredient_name_{{ loop.index }}" name="ingredient_name[]" 
-                                    class="validate" value="{{ get_ingredient_name(ingredient_ref.ingredient_id) }}" required>
-                                <label for="ingredient_name_{{ loop.index }}" class="active">Ingredient Name</label>
+                <fieldset>
+                    <legend>
+                        <h3>Ingredients</h3>
+                    </legend>
+                    <div id="ingredients">
+                        {% for ingredient_ref in recipe.ingredients %}
+                            <div class="row ingredient">
+                                <div class="input-field col s5">
+                                    <i class="fas fa-utensils icon prefix"></i>
+                                    <input type="text" id="ingredient_name_{{ loop.index }}" name="ingredient_name[]" 
+                                        class="validate" value="{{ get_ingredient_name(ingredient_ref.ingredient_id) }}" required>
+                                    <label for="ingredient_name_{{ loop.index }}" class="active">Ingredient Name</label>
+                                </div>
+                                <div class="input-field col s5">
+                                    <input type="text" id="ingredient_quantity_{{ loop.index }}" name="ingredient_quantity[]"
+                                        class="validate" value="{{ ingredient_ref.quantity }}" required>
+                                    <label for="ingredient_quantity_{{ loop.index }}" class="active">Quantity</label>
+                                </div>
+                                <div class="input-field col s2 remove-ingredient-div">
+                                    <button type="button" class="btn remove-ingredient-btn">X</button>
+                                </div>
                             </div>
-                            <div class="input-field col s5">
-                                <input type="text" id="ingredient_quantity_{{ loop.index }}" name="ingredient_quantity[]"
-                                    class="validate" value="{{ ingredient_ref.quantity }}" required>
-                                <label for="ingredient_quantity_{{ loop.index }}" class="active">Quantity</label>
-                            </div>
-                            <div class="input-field col s2 remove-ingredient-div">
-                                <button type="button" class="btn remove-ingredient-btn">X</button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <button type="button" id="add-ingredient-btn" class="btn" onclick="addIngredient()">
-                    Add Another Ingredient
-                </button><br><br>
+                        {% endfor %}
+                    </div>
+                    <button type="button" id="add-ingredient-btn" class="btn" onclick="addIngredient()">
+                        Add Another Ingredient
+                    </button><br><br>
+                </fieldset>
             </div>
             <!-- Instructions -->
             <div class="row card-panel">
-                <div class="input-field col s12">
-                    <i class="fas fa-utensils icon prefix"></i>
-                    <textarea id="instructions" name="instructions" class="materialize-textarea validate"
-                        required>
-                        {{- "\n".join(recipe.instructions) -}}
-                    </textarea>
-                    <label for="instructions">Instructions (use newline for each step)</label>
-                </div>
+                <fieldset>
+                    <legend>
+                        <h3>Instructions</h3>
+                    </legend>
+                    <div class="input-field col s12">
+                        <i class="fas fa-utensils icon prefix"></i>
+                        <textarea id="instructions" name="instructions" class="materialize-textarea validate"
+                            required>
+                            {{- "\n".join(recipe.instructions) -}}
+                        </textarea>
+                        <label for="instructions">Instructions (use newline for each step)</label>
+                    </div>
+                </fieldset>
             </div>
             <!-- Tags -->
             <div class="row">
