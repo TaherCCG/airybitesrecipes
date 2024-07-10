@@ -8,7 +8,7 @@ Admin Panel
     <nav class="nav-extended admin-nav">
         <ul class="nav-content">
             <li class="nav-link">
-                <a href="#manage-recipes" aria-label="Go to manage recipes as admin.">
+                <a href="{{ url_for('manage_recipes') }}" aria-label="Go to manage recipes as admin.">
                     Manage Recipes
                 </a>
             </li>
@@ -58,7 +58,7 @@ Admin Panel
                     <fieldset>
                         <legend>
                             <h4 class="text-primary text-shadow">
-                                <a href="" 
+                                <a href="{{ url_for('manage_recipes') }}" 
                                     aria-label="Go to manage recipes as admin.">
                                     <i class="fa-solid fa-book icon"></i>
                                     Manage Recipes
