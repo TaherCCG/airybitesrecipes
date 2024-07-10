@@ -226,7 +226,6 @@ def add_recipe():
         temperature = int(request.form["temperature"])
         servings = int(request.form["servings"])
         instructions = request.form["instructions"].split("\n")
-        image_url = request.form["image_url"]
         tags = request.form["tags"].split(",")
 
         ingredient_names = request.form.getlist("ingredient_name[]")
@@ -256,7 +255,6 @@ def add_recipe():
             "total_time": total_time,
             "temperature": temperature,
             "servings": servings,
-            "image_url": image_url,
             "category": category,
             "tags": tags,
             "ingredients": ingredient_refs,
@@ -285,7 +283,6 @@ def edit_recipe(recipe_id):
         temperature = int(request.form["temperature"])
         servings = int(request.form["servings"])
         instructions = request.form["instructions"].split("\n")
-        image_url = request.form["image_url"]
         tags = request.form["tags"].split(",")
 
         ingredient_names = request.form.getlist("ingredient_name[]")
@@ -315,7 +312,6 @@ def edit_recipe(recipe_id):
             "total_time": total_time,
             "temperature": temperature,
             "servings": servings,
-            "image_url": image_url,
             "category": category,
             "tags": tags,
             "ingredients": ingredient_refs,
@@ -412,8 +408,6 @@ def manage_recipes():
 
     recipes = list(mongo.db.recipes.find())
     return render_template("manage_recipes.html", recipes=recipes)
-
-
 
 
 if __name__ == "__main__":
