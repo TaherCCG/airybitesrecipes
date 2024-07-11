@@ -32,7 +32,7 @@ html {
 
 body {
     font-family: var(--secondary-font);
-    background-color: var(--neutral-colour);
+    background: radial-gradient(var(--secondary-colour), var(--neutral-colour));
     color: var(--dark-colour);
     display: flex;
     min-height: 100vh;
@@ -66,36 +66,25 @@ a:hover {
 }
 
 /* Buttons */
-.button-primary {
-    background-color: var(--primary-colour);
-    color: var(--neutral-colour);
-    font-family: var(--primary-font);
-    font-weight: bold;
-}
-
-.button-secondary {
-    background-color: var(--secondary-colour);
-    color: var(--neutral-colour);
-    font-family: var(--primary-font);
-}
-
-.button-primary:hover,
-.button-secondary:hover {
+.btn {
     background-color: var(--secondary-colour);
 }
-
+.btn:hover {
+    background-color: #4fa675;
+}
 .btn-small {
     background-color: var(--accent-colour);
     margin-bottom: 25px;
+    font-weight: bold;
 }
 
 .btn-small:hover {
+    background-color: #de8245;
     color: var(--dark-colour);
     font-weight: bold;
 }
 
 .remove-ingredient-btn {
-    background-color: red;
     border-radius: 50%;
     color: var(--neutral-colour);
     font-weight: bold;
@@ -152,6 +141,7 @@ a:hover {
     overflow-x: hidden;
     padding: 0 15px;
     box-sizing: border-box;
+    margin: 20px auto;
 }
 
 /* Navigation */
@@ -360,4 +350,9 @@ fieldset {
 
 .modal .modal-footer {
     background-color: var(--dark-colour);
+}
+@media only screen and (max-width: 800px) {
+    .input-field label {
+        font-size: 12px;
+    }
 }

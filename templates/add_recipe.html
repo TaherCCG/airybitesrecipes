@@ -1,128 +1,133 @@
 {% extends "base.html"%}
+
+{% block title %}Add Recipe Page{% endblock %}
+
 {% block content %}
 
-<div class="container">
-    <h1 class="center-align">Add Recipe</h1>
-    <div class="row card-panel">
-        <form class="col s12" method="post" action="{{ url_for('add_recipe')}}">
-            <!-- Recipe Category Selection-->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-folder-open icon prefix"></i>
-                    <select id="category_name" name="category_name" class="validate" required>
-                        <option value="" disabled selected>Choose Category</option>
-                        {% for category in categories %}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                        {% endfor %}
-                    </select>
-                    <label>Recipe Category</label>
+    <div class="container">
+        <h2 class="center-align">Add Recipe</h2>
+        <div class="row card-panel">
+            <form class="col s12" method="post" action="{{ url_for('add_recipe')}}">
+                <!-- Recipe Category Selection-->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-folder-open icon prefix"></i>
+                        <select id="category_name" name="category_name" class="validate" required>
+                            <option value="" disabled selected>Choose Category</option>
+                            {% for category in categories %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label>Recipe Category</label>
+                    </div>
                 </div>
-            </div>
-            <!-- Recipe Title -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-pencil-alt icon prefix"></i>
-                    <input id="recipe_title" name="recipe_title" minlength="5" maxlength="50" type="text"
-                        class="validate" required>
-                    <label for="recipe_title">Recipe Title</label>
+                <!-- Recipe Title -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-pencil-alt icon prefix"></i>
+                        <input id="recipe_title" name="recipe_title" minlength="5" maxlength="50" type="text"
+                            class="validate" required>
+                        <label for="recipe_title">Recipe Title</label>
+                    </div>
                 </div>
-            </div>
-            <!-- Recipe Description -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-align-left icon prefix"></i>
-                    <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="250"
-                        class="materialize-textarea validate" required></textarea>
-                    <label for="recipe_description">Recipe Description</label>
+                <!-- Recipe Description -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-align-left icon prefix"></i>
+                        <textarea id="recipe_description" name="recipe_description" minlength="5" maxlength="250"
+                            class="materialize-textarea validate" required></textarea>
+                        <label for="recipe_description">Recipe Description</label>
+                    </div>
                 </div>
-            </div>
-            <!-- Timers -->
-            <div class="row card-panel">
-                <fieldset>
-                    <legend>
-                        <h3>Timers</h3>
-                    </legend>
-                    <div class="input-field col s6">
-                        <i class="fas fa-stopwatch icon prefix"></i>
-                        <input id="cook_time" name="cook_time" type="number" class="validate" required>
-                        <label for="cook_time">Cook Time (minutes)</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="fas fa-stopwatch icon prefix"></i>
-                        <input id="prep_time" name="prep_time" type="number" class="validate" required>
-                        <label for="prep_time">Prep Time (minutes)</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="fas fa-thermometer-half icon prefix"></i>
-                        <input id="temperature" name="temperature" type="number" class="validate" required>
-                        <label for="temperature">Temperature (°C)</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <i class="fas fa-users icon prefix"></i>
-                        <input id="servings" name="servings" type="number" class="validate" required>
-                        <label for="servings">Servings</label>
-                    </div>
-                </fieldset>
-            </div>
-            <!-- Ingredients -->
-            <div class="row card-panel">
-                <fieldset>
-                    <legend>
-                        <h3>Ingredients</h3>
-                    </legend>
-                    <div id="ingredients">
-                        <div class="row ingredient">
-                            <div class="input-field col s5">
-                                <i class="fas fa-utensils icon prefix"></i>
-                                <input type="text" id="ingredient_name_1" name="ingredient_name[]" class="validate"
-                                    required>
-                                <label for="ingredient_name_1">Ingredient Name</label>
-                            </div>
-                            <div class="input-field col s5">
-                                <input type="text" id="ingredient_quantity_1" name="ingredient_quantity[]" class="validate"
-                                    required>
-                                <label for="ingredient_quantity_1">Quantity</label>
-                            </div>
-                            <div class="input-field col s2 remove-ingredient-div">
-                                <button type="button" class="btn remove-ingredient-btn">X</button>
+                <!-- Timers -->
+                <div class="row card-panel">
+                    <fieldset>
+                        <legend>
+                            <h3>Timers</h3>
+                        </legend>
+                        <div class="input-field col s12 m6">
+                            <i class="fas fa-stopwatch icon prefix"></i>
+                            <input id="cook_time" name="cook_time" type="number" class="validate" required min="0">
+                            <label for="cook_time">Cook Time (minutes)</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <i class="fas fa-stopwatch icon prefix"></i>
+                            <input id="prep_time" name="prep_time" type="number" class="validate" required min="0">
+                            <label for="prep_time">Prep Time (minutes)</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <i class="fas fa-thermometer-half icon prefix"></i>
+                            <input id="temperature" name="temperature" type="number" class="validate" required min="0">
+                            <label for="temperature">Temperature (°C)</label>
+                        </div>
+                        <div class="input-field col s12 m6">
+                            <i class="fas fa-users icon prefix"></i>
+                            <input id="servings" name="servings" type="number" class="validate" required min="0">
+                            <label for="servings">Servings</label>
+                        </div>
+                    </fieldset>
+                </div>
+                
+                <!-- Ingredients -->
+                <div class="row card-panel">
+                    <fieldset>
+                        <legend>
+                            <h3>Ingredients</h3>
+                        </legend>
+                        <div id="ingredients">
+                            <div class="row ingredient">
+                                <div class="input-field col s6">
+                                    <i class="fas fa-utensils icon prefix"></i>
+                                    <input type="text" id="ingredient_name_1" name="ingredient_name[]" class="validate"
+                                        required>
+                                    <label for="ingredient_name_1">Ingredient Name</label>
+                                </div>
+                                <div class="input-field col s4">
+                                    <i class="fa-solid fa-cubes-stacked icon prefix"></i>
+                                    <input type="text" id="ingredient_quantity_1" name="ingredient_quantity[]" class="validate"
+                                        required>
+                                    <label for="ingredient_quantity_1">Quantity</label>
+                                </div>
+                                <div class="input-field col s2 remove-ingredient-div">
+                                    <button type="button" class="btn remove-ingredient-btn">X</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" id="add-ingredient-btn" class="btn">Add Another Ingredient</button><br><br>
-                </fieldset>
-            </div>
-            <!-- Instructions -->
-            <div class="row card-panel">
-                <fieldset>
-                    <legend>
-                        <h3>Instructions</h3>
-                    </legend>
+                        <button type="button" id="add-ingredient-btn" class="btn">Add Another Ingredient</button><br><br>
+                    </fieldset>
+                </div>
+                <!-- Instructions -->
+                <div class="row card-panel">
+                    <fieldset>
+                        <legend>
+                            <h3>Instructions</h3>
+                        </legend>
+                        <div class="input-field col s12">
+                            <i class="fas fa-utensils icon prefix"></i>
+                            <textarea id="instructions" name="instructions" class="materialize-textarea validate"
+                                required></textarea>
+                            <label for="instructions">Instructions (use newline for each step)</label>
+                        </div>
+                    </fieldset>
+                </div>
+                <!-- Tags -->
+                <div class="row">
                     <div class="input-field col s12">
-                        <i class="fas fa-utensils icon prefix"></i>
-                        <textarea id="instructions" name="instructions" class="materialize-textarea validate"
-                            required></textarea>
-                        <label for="instructions">Instructions (use newline for each step)</label>
+                        <i class="fas fa-tags icon prefix"></i>
+                        <input id="tags" name="tags" type="text" class="validate">
+                        <label for="tags">Tags (comma separated)</label>
                     </div>
-                </fieldset>
-            </div>
-            <!-- Tags -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="fas fa-tags icon prefix"></i>
-                    <input id="tags" name="tags" type="text" class="validate">
-                    <label for="tags">Tags (comma separated)</label>
                 </div>
-            </div>
-            <!-- Submit Button -->
-            <div class="row">
-                <div class="col s12 center-align">
-                    <button type="submit" class="btn">
-                        Add Recipe <i class="fas fa-plus-square icon right"></i>
-                    </button>
+                <!-- Submit Button -->
+                <div class="row">
+                    <div class="col s12 center-align">
+                        <button type="submit" class="btn">
+                            Add Recipe <i class="fas fa-plus-square icon right"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 {% endblock %}
