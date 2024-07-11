@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}
-Admin Panel
-{% endblock %}
+{% block title %}Admin Panel Page{% endblock %}
 
 {% block admin_nav %}
     <nav class="nav-extended admin-nav">
@@ -29,14 +27,15 @@ Admin Panel
 {% block content %}
     <!-- Admin content block -->
     <div class="admin-main-content container">
+        <h2 class="center-align">Admin Panel</h2>
         <div class="row">
             <div class="col s12">
                 {% block admin_content %}
-                <!-- Default content for admin panel -->
+                <!-- Admin Panel information -->
                 <div id="admin-info" class="section card-panel">
                     <fieldset>
                         <legend>
-                            <h4 class="text-shadow">
+                            <h4 class="text-shadow admin_h4">
                                 <a href="{{ url_for('admin_panel') }}" 
                                     aria-label="Go back to admin panel.">
                                     <i class="fa-solid fa-user-tie icon"></i>
@@ -53,7 +52,7 @@ Admin Panel
                         <p>Here's what you can do:</p>
                     </fieldset>
                     </div>
-
+                <!-- Manage Recipe information -->
                 <div id="manage-recipes" class="section card-panel">
                     <fieldset>
                         <legend>
@@ -76,7 +75,7 @@ Admin Panel
                             positive user experience. Carefully review recipes before making changes.</p>
                     </fieldset>
                     </div>
-
+                <!-- Manage Categories information -->
                 <div id="manage-categories" class="section card-panel">
                     <fieldset>
                         <legend>
@@ -101,7 +100,7 @@ Admin Panel
                             site's content structure and user expectations.</p>
                     </fieldset>
                     </div>
-
+                <!-- Manage Users information -->
                 <div id="manage-users" class="section card-panel">
                     <fieldset>
                         <legend>

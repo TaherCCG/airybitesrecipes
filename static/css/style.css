@@ -293,7 +293,7 @@ nav ul li a:hover {
 }
 
 .admin-main-content {
-    margin-top: 64px; 
+    margin-top: 50px; 
 }
 
 .nav-link a:hover {
@@ -302,7 +302,7 @@ nav ul li a:hover {
 
 /* Forms and Inputs */
 fieldset {
-    border: 1px solid var(--accent-colour);
+    border: 1.5px solid var(--accent-colour);
     padding: 1rem;
     border-radius: 5px;
 }
