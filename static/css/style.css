@@ -12,14 +12,15 @@
     --secondary-font: 'Open Sans', sans-serif;
 
     /* Font Sizes */
-    --font-size-base: 16px;
-    --font-size-small: 14px;
-    --font-size-large: 18px;
-    --font-size-xlarge: 24px;
+    --font-size-base: 14px;
+    --font-size-small: 12px;
+    --font-size-large: 16px;
+    --font-size-xlarge: 20px;
 }
 
+/* General Styling */
 html {
-    font-size: calc(60% + 0.8vmin);
+    font-size: var(--font-size-base);
 }
 
 * {
@@ -44,6 +45,7 @@ main {
     width: 100%;
 }
 
+/* Typography */
 h1,
 h2,
 h3,
@@ -66,7 +68,7 @@ a:hover {
 /* Buttons */
 .button-primary {
     background-color: var(--primary-colour);
-    color: var (--neutral-colour);
+    color: var(--neutral-colour);
     font-family: var(--primary-font);
     font-weight: bold;
 }
@@ -86,6 +88,7 @@ a:hover {
     background-color: var(--accent-colour);
     margin-bottom: 25px;
 }
+
 .btn-small:hover {
     color: var(--dark-colour);
     font-weight: bold;
@@ -114,11 +117,12 @@ a:hover {
     font-family: var(--primary-font);
 }
 
+/* Cards and Panels */
 .card-panel {
     background-color: var(--neutral-colour);
     border: 1px solid var(--secondary-colour);
     border-radius: 5px;
-    color: var (--dark-colour);
+    color: var(--dark-colour);
 }
 
 .card-title {
@@ -150,6 +154,7 @@ a:hover {
     box-sizing: border-box;
 }
 
+/* Navigation */
 /* Nav Styling */
 nav {
     background-color: var(--primary-colour);
@@ -197,6 +202,7 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
+/* Hero Section */
 /* Hero  */
 .hero-image {
     position: relative;
@@ -231,20 +237,15 @@ nav ul li a:hover {
     z-index: 2; 
 }
 
-.hero-text p {
-    font-size: 24px;
-    margin-bottom: 8px;
-}
-
 .hero-text h1 {
-    font-size: 48px;
+    font-size: calc(var(--font-size-xlarge) * 2);
     font-family: var(--primary-font);
     font-weight: bold;
     margin-bottom: 16px;
 }
 
 .hero-text h2 {
-    font-size: 32px;
+    font-size: calc(var(--font-size-large) * 1.5);
     font-weight: 500;
     font-family: var(--primary-font);
     margin-bottom: 0;
@@ -260,12 +261,14 @@ nav ul li a:hover {
     margin: 20px auto;
 }
 
+/* Flashes and Alerts */
 .flashes h4 {
-    line-height: 2;
+    line-height: 1;
     font-family: var(--primary-font);
     text-align: center;
     background-color: var(--dark-colour);
 }
+
 .red-text {
     color: red;
 }
@@ -274,6 +277,7 @@ nav ul li a:hover {
     color: green;
 }
 
+/* Collapsible and Expandable */
 .collapsible-header {
     margin: 5px;
     line-height: 42px;
@@ -284,15 +288,18 @@ nav ul li a:hover {
     font-weight: bold;
 }
 
+/* Profile and User Sections */
 /* Profile Styling */
 .profile-image {
     width: 100px;
     height: 100px;
 }
+
+/* Admin Dashboard Styling */
 /* Admin main content starts below the admin navbar */
 .admin-nav {
     background-color: var(--secondary-colour);
-    color: var(--accent-colour)
+    color: var(--accent-colour);
 }
 
 .admin-main-content {
@@ -300,16 +307,17 @@ nav ul li a:hover {
 }
 
 .nav-link a:hover {
-    color: var(--accent-colour)
+    color: var(--accent-colour);
 }
 
+/* Forms and Inputs */
 fieldset {
     border: 1px solid var(--accent-colour);
     padding: 1rem;
     border-radius: 5px;
 }
 
-/* Responsive adjustments */
+/* Responsive Design Adjustments */
 @media screen and (max-width: 992px) {
     .nav-content {
         padding: 10px 0; 
@@ -320,6 +328,7 @@ fieldset {
     }
 }
 
+/* Text Highlights and Warnings */
 .text-highlight {
     font-family: var(--primary-font);
     color: var(--dark-colour);
@@ -332,6 +341,7 @@ fieldset {
     padding: 5px;
 }
 
+/* Other Highlights */
 .highlight {
     background-color: var(--secondary-colour);
     font-family: var(--primary-font);
@@ -339,12 +349,13 @@ fieldset {
     padding: 15px;
 }
 
+/* Modal Styling */
 .modal {
-    background-color: var(--secondary-colour);
+    background-color: var(--neutral-colour);
 }
 
 .modal .helper-text {
-    color: red;
+    color: rgb(136, 3, 3);
 }
 
 .modal .modal-footer {
