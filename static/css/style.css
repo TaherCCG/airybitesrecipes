@@ -12,10 +12,10 @@
     --secondary-font: 'Open Sans', sans-serif;
 
     /* Font Sizes */
-    --font-size-base: 14px;
-    --font-size-small: 12px;
-    --font-size-large: 16px;
-    --font-size-xlarge: 20px;
+    --font-size-base: 16px;
+    --font-size-small: 14px;
+    --font-size-large: 20px;
+    --font-size-xlarge: 24px;
 }
 
 /* General Styling */
@@ -27,7 +27,7 @@ html {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
 }
 
 body {
