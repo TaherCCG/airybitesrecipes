@@ -1,112 +1,114 @@
 {% extends "base.html" %}
 
-{% block title %}
-Home
-{% endblock %}
+{% block title %}Home Page{% endblock %}
 
 {% block content %}
-<!-- Hero Image -->
-<div class="hero-image">
-    <img src="{{ url_for('static', filename='images/hero-bg.png') }}" alt="Hero Image">
-    <div class="hero-overlay"></div>
-    <div class="hero-text">
-        <h1 class="text-primary">AiryBites</h1>
-        <hr class="divider">
-        <h2 class="text-secondary">Crispy Goodness at Your Fingertips</h2>
+    <!-- Hero Image -->
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='images/hero-bg.png') }}" 
+            alt="Hero Image of Air Fryer and food in the background">
+        <div class="hero-overlay"></div>
+        <div class="hero-text">
+            <h1 class="text-primary">AiryBites</h1>
+            <hr class="divider">
+            <h2 class="text-secondary">Crispy Goodness at Your Fingertips</h2>
+        </div>
     </div>
-</div>
-<div class="container">
-    <ul class="collapsible">
-        {% for recipe in recipes %}
-        <li>
-            <div class="collapsible-header row">
-                <div class="col s12">
-                    <i class="fas fa-caret-down icon"></i>
-                    <h4>{{ recipe.recipe_title }}</h4>
-                    <p>{{ recipe.category }}</p>
-                </div>
-                {% if session.user|lower == recipe.created_by|lower %}
-                <div class="col s12">
-                    <!-- Modal Trigger Delete -->
-                    <a href="#delete-modal-{{ recipe._id }}" class="btn-small modal-trigger red">Delete</a>
-                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small">Edit</a>
-                </div>
-                {% endif %}
+    <div>
+        <h2 class="center-align">Browse Recipes</h2>
+    </div>
+    <div class="container">
+        <ul class="collapsible">
+            {% for recipe in recipes %}
+            <li>
+                <div class="collapsible-header row">
+                    <div class="col s12">
+                        <i class="fas fa-caret-down icon"></i>
+                        <h4>{{ recipe.recipe_title }}</h4>
+                        <p>{{ recipe.category }}</p>
+                    </div>
+                    {% if session.user|lower == recipe.created_by|lower %}
+                    <div class="col s12">
+                        <!-- Modal Trigger Delete -->
+                        <a href="#delete-modal-{{ recipe._id }}" class="btn-small modal-trigger red">Delete</a>
+                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small">Edit</a>
+                    </div>
+                    {% endif %}
 
-            </div>
-            <div class="collapsible-body">
-                <div class="card-panel">
+                </div>
+                <div class="collapsible-body">
+                    <div class="card-panel">
+                        <fieldset>
+                            <legend>
+                                <h4>Description</h4>
+                            </legend>
+                            <p>{{ recipe.recipe_description }}</p>
+                        </fieldset>
+                    </div>
+                    <div class="card-panel">
+                        <fieldset>
+                            <legend>
+                                <h4>Timers</h4>
+                            </legend>
+                            <p><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
+                            <p><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
+                            <p><strong>Total Time:</strong> {{ recipe.total_time }}</p>
+                            <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+                        </fieldset>
+                    </div>
+                    <div class="card-panel">
+                        <fieldset>
+                            <legend>
+                                <h4>Ingredients</h4>
+                            </legend>
+                            <ul>
+                                {% for ingredient_ref in recipe.ingredients %}
+                                <li>
+                                    <strong>{{ get_ingredient_name(ingredient_ref.ingredient_id) }}</strong>
+                                    - <em>{{ ingredient_ref.quantity }} </em>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </fieldset>
+                    </div>
+                    <div class="card-panel">
+                        <fieldset>
+                            <legend>
+                                <h4>Instructions</h4>
+                            </legend>
+                            <ol>
+                                {% for instruction in recipe.instructions %}
+                                    {% if instruction.strip() %}
+                                        <li>{{ instruction }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                        </fieldset>
+                    </div>
+                    <p><strong>Created by:</strong> {{ recipe.created_by }}</p>
+                    <p><strong>Posted on:</strong> {{ recipe.created_at }}</p>
+                    <p><strong>Updated on:</strong> {{ recipe.updated_at }}</p>
+                </div>
+            </li>
+            <!-- Delete Confirmation Modal -->
+            <aside id="delete-modal-{{ recipe._id }}" class="modal">
+                <div class="modal-content">
                     <fieldset>
                         <legend>
-                            <h4>Description</h4>
+                            <h5>Confirm Delete</h5>
                         </legend>
-                        <p>{{ recipe.recipe_description }}</p>
+                        <p>Are you sure you want to delete the recipe "{{ recipe.recipe_title }}"?</p>
+                        <p class="helper-text">This action can not be undone.</p>
                     </fieldset>
                 </div>
-                <div class="card-panel">
-                    <fieldset>
-                        <legend>
-                            <h4>Timers</h4>
-                        </legend>
-                        <p><strong>Cook Time:</strong> {{ recipe.cook_time }}</p>
-                        <p><strong>Prep Time:</strong> {{ recipe.prep_time }}</p>
-                        <p><strong>Total Time:</strong> {{ recipe.total_time }}</p>
-                        <p><strong>Servings:</strong> {{ recipe.servings }}</p>
-                    </fieldset>
+                <div class="modal-footer">
+                    <form action="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" method="POST">
+                        <button type="submit" class="modal-close btn-small red">Delete</button>
+                        <a href="#!" class="modal-close btn-small">Cancel</a>
+                    </form>
                 </div>
-                <div class="card-panel">
-                    <fieldset>
-                        <legend>
-                            <h4>Ingredients</h4>
-                        </legend>
-                        <ul>
-                            {% for ingredient_ref in recipe.ingredients %}
-                            <li>
-                                <strong>{{ get_ingredient_name(ingredient_ref.ingredient_id) }}</strong>
-                                - <em>{{ ingredient_ref.quantity }} </em>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </fieldset>
-                </div>
-                <div class="card-panel">
-                    <fieldset>
-                        <legend>
-                            <h4>Instructions</h4>
-                        </legend>
-                        <ol>
-                            {% for instruction in recipe.instructions %}
-                                {% if instruction.strip() %}
-                                    <li>{{ instruction }}</li>
-                                {% endif %}
-                            {% endfor %}
-                        </ol>
-                    </fieldset>
-                </div>
-                <p><strong>Created by:</strong> {{ recipe.created_by }}</p>
-                <p><strong>Posted on:</strong> {{ recipe.created_at }}</p>
-                <p><strong>Updated on:</strong> {{ recipe.updated_at }}</p>
-            </div>
-        </li>
-        <!-- Delete Confirmation Modal -->
-        <aside id="delete-modal-{{ recipe._id }}" class="modal">
-            <div class="modal-content">
-                <fieldset>
-                    <legend>
-                        <h5>Confirm Delete</h5>
-                    </legend>
-                    <p>Are you sure you want to delete the recipe "{{ recipe.recipe_title }}"?</p>
-                    <p class="helper-text">This action can not be undone.</p>
-                </fieldset>
-            </div>
-            <div class="modal-footer">
-                <form action="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" method="POST">
-                    <button type="submit" class="modal-close btn-small red">Delete</button>
-                    <a href="#!" class="modal-close btn-small">Cancel</a>
-                </form>
-            </div>
-        </aside>
-        {% endfor %}
-    </ul>
-</div>
+            </aside>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
