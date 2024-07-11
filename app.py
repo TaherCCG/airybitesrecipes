@@ -19,9 +19,9 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Check user role before each request
 @app.before_request
 def before_request():
+    """Check user role before each request."""
     g.user_role = None
     if 'user' in session:
         user = mongo.db.users.find_one({"username": session['user']})
@@ -29,10 +29,10 @@ def before_request():
             g.user_role = user.get('role', 'user')
 
 
-# Decorator to check if the user is logged in
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
+        """Decorator to check if the user is logged in."""
         if 'user' not in session:
             flash("You need to be logged in to access this page.", "error")
             return redirect(url_for("login"))
@@ -40,10 +40,10 @@ def login_required(f):
     return decorated_function
 
 
-# Decorated function to check if user is admin or not
 def admin_required(f):
     @wraps(f)
     def check_role(*args, **kwargs):
+        """Decorated function to check if user is admin or not."""
         if 'user' not in session:
             flash("You need to be logged in to access this page.", "error")
             return redirect(url_for("login"))
@@ -57,24 +57,24 @@ def admin_required(f):
     return check_role
 
 
-# Route to display recipes
 @app.route("/")
 @app.route("/get_recipes")
 def get_recipes():
+    """Route to display recipes."""
     recipes = mongo.db.recipes.find()
     return render_template(
         "index.html", recipes=recipes,
         get_ingredient_name=get_ingredient_name)
 
 
-# Route to display registration page
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Route to display registration page."""
     if request.method == "POST":
-        # Check if password match
         password = request.form["password"]
         confirm_password = request.form["confirm_password"]
 
+        # Check if password match
         if password != confirm_password:
             flash("Passwords do not match. Please try again.", "warning")
             return redirect(url_for("register"))
@@ -105,26 +105,26 @@ def register():
     return render_template("register.html")
 
 
-# Route to admin panel
 @app.route('/admin_panel')
 @admin_required
 def admin_panel():
+    """Route to admin panel."""
     users = mongo.db.users.find()
     return render_template('admin_panel.html', users=users)
 
 
-# Add a route to render the user_roles page
 @app.route('/admin/user_roles')
 @admin_required
 def user_roles():
+    """Add a route to render the user_roles page."""
     users = mongo.db.users.find()
     return render_template('user_roles.html', users=users)
 
 
-# Update User Role
 @app.route('/update_role/<user_id>', methods=['POST'])
 @admin_required
 def update_role(user_id):
+    """Add a route to render the user_roles page."""
     new_role = request.form['role']
     mongo.db.users.update_one({
         "_id": ObjectId(user_id)},
@@ -133,10 +133,10 @@ def update_role(user_id):
     return redirect(url_for('user_roles'))
 
 
-# Delete User
 @app.route("/delete_user/<user_id>", methods=["POST"])
 @admin_required
 def delete_user(user_id):
+    """Delete User"""
     delete_recipes = request.form.get('delete_recipes') == 'true'
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
 
@@ -156,9 +156,9 @@ def delete_user(user_id):
     return redirect(url_for("user_roles"))
 
 
-# Route to display login page
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """Route to display login page."""
     if request.method == "POST":
         # Check if username already exists in db
         existing_user = mongo.db.users.find_one(
@@ -188,10 +188,10 @@ def login():
     return render_template("login.html")
 
 
-# Route to display user profile page
 @app.route("/profile/<username>", methods=["GET", "POST"])
 @login_required
 def profile(username):
+    """Route to display user profile page."""
     # Get username session username from the database
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
@@ -200,10 +200,10 @@ def profile(username):
     return render_template("profile.html", username=username, recipes=recipes)
 
 
-# Route to remove user from session
 @app.route("/logout")
 @login_required
 def logout():
+    """Route to remove user from session."""
     # Remove user session (logout)
     flash("You have logged out", "success")
     session.pop("user")
@@ -211,8 +211,9 @@ def logout():
 
 
 # Ref 1: https://flask-pymongo.readthedocs.io/en/latest/
-# Helper function to get ingredient name by id
+
 def get_ingredient_name(ingredient_id):
+    """Helper function to get ingredient name by id."""
     ingredient = mongo.db.ingredients.find_one({
         "_id": ObjectId(ingredient_id)})
     if ingredient:
@@ -230,10 +231,10 @@ def get_ingredient_name(ingredient_id):
 app.jinja_env.globals.update(get_ingredient_name=get_ingredient_name)
 
 
-# Route to add recipe to the database
 @app.route("/add_recipe", methods=["GET", "POST"])
 @login_required
 def add_recipe():
+    """Route to add recipe to the database."""
     if request.method == "POST":
         category = request.form["category_name"]
         recipe_title = request.form["recipe_title"]
@@ -288,10 +289,10 @@ def add_recipe():
     return render_template("add_recipe.html", categories=categories)
 
 
-# Edit / Update recipe
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 @login_required
 def edit_recipe(recipe_id):
+    """ Edit / Update recipe."""
     if request.method == "POST":
         category = request.form["category_name"]
         recipe_title = request.form["recipe_title"]
@@ -351,10 +352,10 @@ def edit_recipe(recipe_id):
         "edit_recipe.html", recipe=recipe, categories=categories)
 
 
-# Delete Recipe
 @app.route("/delete_recipe/<recipe_id>", methods=["POST"])
 @login_required
 def delete_recipe(recipe_id):
+    """Delete Recipe."""
     mongo.db.recipes.delete_one({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted", "success")
     return redirect(url_for("get_recipes"))
@@ -363,6 +364,7 @@ def delete_recipe(recipe_id):
 @app.route("/get_categories")
 @admin_required
 def get_categories():
+    """Route to get categories."""
     categories = list(mongo.db.categories.find().sort("category_name", 1))
 
     # Iterate categories and add recipe count
@@ -374,10 +376,10 @@ def get_categories():
     return render_template("categories.html", categories=categories)
 
 
-# Route to Add Category
 @app.route("/add_category", methods=["POST"])
 @admin_required
 def add_category():
+    """Route ta add a Category."""
     if request.method == "POST":
         category_name = request.form.get("category_name")
         if category_name:
@@ -398,10 +400,10 @@ def add_category():
     return redirect(url_for("get_categories"))
 
 
-# Route to edit category
 @app.route("/edit_category", methods=["POST"])
 @admin_required
 def edit_category():
+    """Route to edit category."""
     category_id = request.form.get("category_id")
     category_name = request.form.get("category_name")
     if category_id and category_name:
@@ -415,10 +417,10 @@ def edit_category():
     return redirect(url_for("get_categories"))
 
 
-# Route to delete category
 @app.route("/delete_category", methods=["POST"])
 @admin_required
 def delete_category():
+    """Route to delete category."""
     category_id = request.form.get("category_id")
     if category_id:
         mongo.db.categories.delete_one({"_id": ObjectId(category_id)})
@@ -431,6 +433,7 @@ def delete_category():
 @app.route("/manage_recipes")
 @login_required
 def manage_recipes():
+    """Route to manage"""
     user = mongo.db.users.find_one({"username": session['user']})
     if not user or user.get('role') != 'admin':
         return redirect(url_for("get_recipes"))
