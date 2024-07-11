@@ -252,6 +252,7 @@ nav ul li a:hover {
 
 /* Flashes and Alerts */
 .flashes h4 {
+    height: 50px;
     line-height: 1;
     font-family: var(--primary-font);
     text-align: center;

@@ -50,8 +50,8 @@ def admin_required(f):
         user = mongo.db.users.find_one({"username": session['user']})
         if not user or user.get('role') != 'admin':
             flash(
-                f"""You do not have the necessary permissions"
-                " to access this page.","error""")
+                    f"""You do not have the necessary permissions
+                        to access this page.""", "error")
             return redirect(url_for("get_recipes"))
         return f(*args, **kwargs)
     return check_role
@@ -84,8 +84,9 @@ def register():
             {"username": request.form.get("username").lower()})
 
         if existing_user:
-            flash(f"""Username already exists. "
-                "Please choose another username.", "warning""")
+            flash(
+                    f"""Username already exists.
+                        Please choose another username.""", "warning")
             return redirect(url_for("register"))
 
         # Set default role to user
@@ -175,14 +176,15 @@ def login():
             else:
                 # Password not match to user message
                 flash(
-                    f"""Incorrect Username and/or Password!"
-                    " Please check and try again.", "warning""")
+                        f"""Incorrect Username and/or Password!
+                            Please check and try again.""", "warning")
                 return redirect(url_for("login"))
 
         else:
             # User does not exist
-            flash(f"""Incorrect Username and/or Password!"
-                " Please check and try again.", "warning""")
+            flash(
+                    f"""Incorrect Username and/or Password!
+                        Please check and try again.""", "warning")
             return redirect(url_for("login"))
 
     return render_template("login.html")
