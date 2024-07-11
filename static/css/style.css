@@ -99,7 +99,6 @@ a:hover {
     align-items: center;
 }
 
-.header,
 .footer {
     background-color: var(--dark-colour);
     color: var(--neutral-colour);
@@ -325,8 +324,8 @@ fieldset {
 }
 
 .warning {
-    background-color: yellow;
-    color: red;
+    background-color: rgba(232, 232, 84, 0.764);
+    color: rgb(110, 4, 4);
     font-weight: bolder;
     padding: 5px;
 }
@@ -351,6 +350,8 @@ fieldset {
 .modal .modal-footer {
     background-color: var(--dark-colour);
 }
+
+
 @media only screen and (max-width: 800px) {
     .input-field label {
         font-size: 12px;

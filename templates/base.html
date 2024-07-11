@@ -20,7 +20,7 @@
         type="text/css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-    <title>AiryBites</title>
+    <title>{% block title %}AiryBites{% endblock %}</title>
 </head>
 
 <body>
@@ -90,34 +90,23 @@
             {% endwith %}
         </section>
 
-    {% block content%}
-    {% endblock %}
+        {% block content%}
+        {% endblock %}
 
     </main>
 
-    <footer class="page-footer">
+    <footer class="footer">
         <div class="container transparent">
             <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Airy Bites</h5>
-                    <p class="grey-text text-lighten-4">Air Fryer Recipes</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                    </ul>
+                <div class="col s12">
+                    <h3 class="white-text center-align">Airy Bites</h3>
+                    <p class="grey-text text-lighten-4 center-align">Air Fryer Recipes</p>
                 </div>
             </div>
         </div>
         <div class="footer-copyright">
-            <div class="container transparent">
+            <div class="container transparent center-align">
                 © 2024 Copyright Taher - Code Institute Project 3
-                <a class="grey-text text-lighten-4 right" href="#!"> GitHub </a>
-                <a class="grey-text text-lighten-4 right" href="#!"> LinkedIn </a>
             </div>
         </div>
     </footer>
