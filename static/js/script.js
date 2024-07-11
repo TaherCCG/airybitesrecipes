@@ -26,15 +26,20 @@ $(document).ready(function () {
             <div class="input-field col s6">
                 <i class="fas fa-utensils icon prefix"></i>
                 <label for="ingredient_name_${ingredientCount}">Ingredient Name</label>
-                <input type="text" id="ingredient_name_${ingredientCount}" name="ingredient_name[]" class="validate" required>
+                <input type="text" id="ingredient_name_${ingredientCount}" name="ingredient_name[]"
+                    class="validate" required aria-label="Ingredient Name>
             </div>
             <div class="input-field col s4">
                 <i class="fa-solid fa-cubes-stacked icon prefix"></i>
                 <label for="ingredient_quantity_${ingredientCount}">Quantity</label>
-                <input type="text" id="ingredient_quantity_${ingredientCount}" name="ingredient_quantity[]" class="validate" required>
+                <input type="text" id="ingredient_quantity_${ingredientCount}" name="ingredient_quantity[]" 
+                    class="validate" required aria-label="Ingredient Quantity>
             </div>
             <div class="input-field col s2 remove-ingredient-div">
-                <button type="button" class="btn remove-ingredient-btn">X</button>
+                <button type="button" class="btn remove-ingredient-btn"
+                    aria-label="Remove Ingredient">
+                    X
+                </button>
             </div>
         `;
         ingredientsDiv.appendChild(newIngredientDiv);
