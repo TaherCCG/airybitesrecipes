@@ -391,8 +391,8 @@ def add_category():
                 mongo.db.categories.insert_one({
                     "category_name": category_name})
                 flash(
-                    f"""Category '{category_name}' added successfully."
-                    , "success""")
+                    f"Category '{category_name}' added successfully.",
+                    "success")
         else:
             flash("Category name is required.", "error")
             return redirect(url_for("get_categories"))
