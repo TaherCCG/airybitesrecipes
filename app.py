@@ -19,6 +19,12 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """404 Page"""
+    return render_template('404.html'), 404
+
+
 @app.before_request
 def before_request():
     """Check user role before each request."""
