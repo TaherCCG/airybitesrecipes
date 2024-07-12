@@ -267,6 +267,7 @@ def add_recipe():
             })
 
         created_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+        updated_at = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 
         recipe = {
             "recipe_title": recipe_title,
@@ -281,6 +282,7 @@ def add_recipe():
             "tags": tags,
             "ingredients": ingredient_refs,
             "created_at": created_at,
+            "updated_at": updated_at,
             "created_by": session["user"]
         }
         mongo.db.recipes.insert_one(recipe)
