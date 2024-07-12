@@ -90,6 +90,7 @@
                         <p><strong>Updated on:</strong> {{ recipe.updated_at }}</p>
                     </div>
                 </li>
+            </ul>
                 <!-- Delete Confirmation Modal -->
                 <div id="delete-modal-{{ recipe._id }}" class="modal">
                     <div class="modal-content">
@@ -109,6 +110,6 @@
                     </div>
                 </div>
             {% endfor %}
-        </ul>
+        
     </div>
 {% endblock %}
