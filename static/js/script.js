@@ -1,3 +1,5 @@
+/* jshint esversion: 11 */
+
 // Initialise Materialize components
 $(document).ready(function () {
     // SideNaV
