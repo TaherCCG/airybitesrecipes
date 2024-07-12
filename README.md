@@ -18,6 +18,34 @@ Through this project, I aim to demonstrate my ability to integrate various techn
 
 ## List Of Features
 
+### Navigation
+
+- **Navigation Bar:** Provides easy access to other sections of the website with clear and responsive navigation links.
+
+- **Side Navigation:** Provides a collapsible side navigation menu for easy access to various sections of the website.
+
+- **Admin Navigation:** Provides a navigation bar specifically tailored for administrative tasks.
+
+### Home Page
+
+- **Hero Image:** Features a visually appealing hero image with overlay and text, welcoming users to the site.
+
+- **Recipe Browsing Section:**
+    - **Recipe List**
+        - An introductory heading encouraging users to browse recipes.
+        - Recipes are displayed in a collapsible list for easy navigation.
+        - Each recipe item includes a header with the recipe title, category, and options to edit or delete if created by the logged-in user.
+
+    - **Recipe Details:**
+        - Each recipe includes detailed information such as description, timers, ingredients, and instructions.
+        - Additional metadata like the creator's name and timestamps are also provided.
+
+- **Delete Confirmation Modal:**
+    - A modal dialog box for confirming the deletion of a recipe.
+
+    
+#### 
+
 
 ## UX/UI
 ### User Stories
