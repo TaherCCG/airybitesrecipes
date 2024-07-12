@@ -257,6 +257,16 @@ I have designed the wireframe for PC and mobile screens for the AiryBites App to
 
 ---
 
+## Testing
+Please refer to [TESTING.md](documentation/TESTING.md)
+
+---
+
+## Deployment
+
+Please refer to [DEPLOYMENT.md](documentation/DEPLOYMENT.md)
+
+
 ## Tools and Technologies Used
 
 - **MongoDB:** This database offers a flexible and scalable storage solution for our recipe data.
