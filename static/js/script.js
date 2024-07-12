@@ -23,23 +23,16 @@ $(document).ready(function () {
         const newIngredientDiv = document.createElement('div');
         newIngredientDiv.classList.add('row', 'ingredient');
         newIngredientDiv.innerHTML = `
-            <div class="input-field col s6">
-                <i class="fas fa-utensils icon prefix"></i>
+            <div class="input-field col s5">
                 <label for="ingredient_name_${ingredientCount}">Ingredient Name</label>
-                <input type="text" id="ingredient_name_${ingredientCount}" name="ingredient_name[]"
-                    class="validate" required aria-label="Ingredient Name>
+                <input type="text" id="ingredient_name_${ingredientCount}" name="ingredient_name[]" class="validate" required>
             </div>
-            <div class="input-field col s4">
-                <i class="fa-solid fa-cubes-stacked icon prefix"></i>
+            <div class="input-field col s5">
                 <label for="ingredient_quantity_${ingredientCount}">Quantity</label>
-                <input type="text" id="ingredient_quantity_${ingredientCount}" name="ingredient_quantity[]" 
-                    class="validate" required aria-label="Ingredient Quantity>
+                <input type="text" id="ingredient_quantity_${ingredientCount}" name="ingredient_quantity[]" class="validate" required>
             </div>
             <div class="input-field col s2 remove-ingredient-div">
-                <button type="button" class="btn remove-ingredient-btn"
-                    aria-label="Remove Ingredient">
-                    X
-                </button>
+                <button type="button" class="btn remove-ingredient-btn">X</button>
             </div>
         `;
         ingredientsDiv.appendChild(newIngredientDiv);
