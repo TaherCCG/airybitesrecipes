@@ -10,9 +10,7 @@ AiryBites Recipes will enable users to create, share, and discover a variety of 
 - Add new recipes with details like ingredients, preparation steps, and images
 - Edit and delete their own recipes
 - Browse and search for recipes shared by other users
-- Interact with the community through comments and ratings
-Through this project, I aim to demonstrate my ability to integrate various technologies into a cohesive and functional application, ensuring a smooth and engaging user experience.
-
+- Administrative position responsible for overseeing users, recipes, and categories through the admin panel.
 
 ## Deployed App : https://airybites-app-9649332aa316.herokuapp.com/
 
@@ -21,12 +19,17 @@ Through this project, I aim to demonstrate my ability to integrate various techn
 ### Navigation
 
 - **Navigation Bar:** Provides easy access to other sections of the website with clear and responsive navigation links.
+![alt text](documentation/images/features/navbar.png)
+![alt text](documentation/images/features/navbar2.png)
 
 - **Side Navigation:** Provides a collapsible side navigation menu for easy access to various sections of the website.
+![alt text](documentation/images/features/navbar3.png)
 
 - **Admin Navigation:** Provides a navigation bar specifically tailored for administrative tasks.
 
 ### Home Page
+
+![alt text](documentation/images/features/homepage.png)
 
 - **Hero Image:** Features a visually appealing hero image with overlay and text, welcoming users to the site.
 
@@ -44,7 +47,7 @@ Through this project, I aim to demonstrate my ability to integrate various techn
     - A modal dialog box for confirming the deletion of a recipe.
 
     
-#### 
+### 
 
 
 ## UX/UI
