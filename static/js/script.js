@@ -94,7 +94,7 @@ window.showDeleteModal = function (userId) {
     const modal = document.getElementById('deleteUserModal');
     const instance = M.Modal.getInstance(modal);
     instance.open();
-}
+};
 
 // Check if recipes are checked/true for deletion too
 window.confirmDelete = function () {
@@ -107,7 +107,7 @@ window.confirmDelete = function () {
     const modal = document.getElementById('deleteUserModal');
     const instance = M.Modal.getInstance(modal);
     instance.close();
-}
+};
 
 // Function to manage the 'Edit Category' modal
 window.showEditModal = function (categoryId, categoryName) {
@@ -117,7 +117,7 @@ window.showEditModal = function (categoryId, categoryName) {
     const editModal = document.getElementById('edit-category-modal');
     const instance = M.Modal.getInstance(editModal);
     instance.open();
-}
+};
 
 // Function to Manage 'Delete Category' modal
 window.showDeleteCategoryModal = function (categoryId) {
@@ -125,4 +125,4 @@ window.showDeleteCategoryModal = function (categoryId) {
     const deleteModal = document.getElementById('delete-category-modal');
     const instance = M.Modal.getInstance(deleteModal);
     instance.open();
-}
+};
