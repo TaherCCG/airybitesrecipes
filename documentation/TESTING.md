@@ -7,14 +7,7 @@ The BETA testers, consisting of friends and family, enthusiastically engaged in 
 ## Browser Compatibility Tests
 I tested the website in different browsers for compatibility.
 
-- Chrome
-    - 
-
-- Firefox
-
-- Brave
-
-- Opera
+Please refer to [Browser Compatibility Tests (PDF)](pdf/browser-tests.pdf)
 
 
 
