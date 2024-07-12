@@ -19,35 +19,91 @@ AiryBites Recipes will enable users to create, share, and discover a variety of 
 ### Navigation
 
 - **Navigation Bar:** Provides easy access to other sections of the website with clear and responsive navigation links.
-![alt text](documentation/images/features/navbar.png)
-![alt text](documentation/images/features/navbar2.png)
+    - ![Desktop Navbar](documentation/images/features/navbar.png)
+    - ![Mobile Nav](documentation/images/features/navbar2.png)
 
-- **Side Navigation:** Provides a collapsible side navigation menu for easy access to various sections of the website.
-![alt text](documentation/images/features/navbar3.png)
+- **Side Navigation:** Provides a collapsible side navigation menu for easy access to various sections of the website.<br>
+    - ![Sidenav](documentation/images/features/navbar3.png)
 
 - **Admin Navigation:** Provides a navigation bar specifically tailored for administrative tasks.
-
+    - ![Admin Nav](documentation/images/features/nav-admin.png)
 ### Home Page
 
-![alt text](documentation/images/features/homepage.png)
+![Home Page](documentation/images/features/homepage.png)
 
 - **Hero Image:** Features a visually appealing hero image with overlay and text, welcoming users to the site.
+    - ![Hero](documentation/images/features/hero.png)
 
 - **Recipe Browsing Section:**
     - **Recipe List**
         - An introductory heading encouraging users to browse recipes.
         - Recipes are displayed in a collapsible list for easy navigation.
         - Each recipe item includes a header with the recipe title, category, and options to edit or delete if created by the logged-in user.
+        - ![Logged In Recipe List](documentation/images/features/logged-in.png)
 
     - **Recipe Details:**
         - Each recipe includes detailed information such as description, timers, ingredients, and instructions.
         - Additional metadata like the creator's name and timestamps are also provided.
+        - ![Recipe Details](documentation/images/features/view-rec.png)
 
 - **Delete Confirmation Modal:**
     - A modal dialog box for confirming the deletion of a recipe.
-
+    - ![Delete Confirmation Modal](documentation/images/features/modal-del.png)
     
-### 
+### Profile Page
+The Profile Page provides users with a personal space where they can view and manage their recipes. 
+
+- **Your Profile** This section displays the user's profile information including:
+    - Profile Picture: A placeholder image is shown if no profile picture is available.
+    - Username: The username of the logged-in user.
+    - ![Profile Page](documentation/images/features/profile.png)
+
+- **Your Recipes**
+    - This section lists all the recipes created by the user. If the user has not created any recipes yet, a prompt is shown to create or browse recipes.
+    - ![Profile new user](documentation/images/features/pro-new.png)
+- **Recipe Details Modal**
+    - Each recipe has a detailed view available in a modal. This modal includes the recipe's title, description, cook time, prep time, total time, servings, ingredients, and instructions.Users can edit or delete the recipe from this modal.
+    - ![Recipe Details Modal](documentation/images/features/pro-rec-modal.png)
+- **Delete Confirmation Modal**
+    - Before deleting a recipe, the user is prompted with a confirmation modal to ensure they intend to delete the recipe. This action is irreversible.
+    - ![Delete Confirmation Modal](documentation/images/features/pro-del-modal.png)
+
+
+### Admin Panel Feature
+
+- **Overview**
+    - The Admin Panel is a comprehensive dashboard for site administrators to manage and maintain various aspects of the website. It provides powerful tools for overseeing recipes, categories, and user accounts. Below is a brief description of the key features available in the Admin Panel.
+
+- **Navigation**
+    - The admin navigation bar allows administrators to easily access different management sections:
+    - ![Admin Nav](documentation/images/features/nav-admin.png)
+        - *Manage Recipes:* Oversee and control all recipe-related content.
+        - *Manage Categories:* Organise and manage recipe categories.
+        - *Manage Users:* Administer user accounts and roles.
+
+- **Admin Panel Overview**
+    - A welcoming section for administrators, highlighting the importance of careful and responsible management.
+    - ![Admin Panel](documentation/images/features/ad-welcome.png)
+
+- **Manage Recipes**
+    - A section dedicated to overseeing all recipe-related content.
+    - ![Admin Recipe Management](documentation/images/features/ad-rec.png)
+
+- **Manage Categories**
+    - A section for managing recipe categories.
+    - ![Admin Category Management](documentation/images/features/ad-cat.png)
+
+- **Manage Users**
+    - A section for administering user accounts and roles.
+    - ![Admin User Management](documentation/images/features/ad-user.png)
+
+- **Delete User Modal**
+    - The Delete User Modal provides administrators with the ability to remove a user from the system. It also includes an option to delete all recipes created by the user.
+    - ![Delete User Modal](documentation/images/features/ad-del-modal.png)
+
+### 404 Page
+- **404 page** in AiryBites notifies users when a page is not found, offering clear navigation options to guide them back on track.
+    - ![404 Page](documentation/images/features/404-page.png)
 
 
 ## UX/UI
@@ -84,7 +140,7 @@ AiryBites Recipes will enable users to create, share, and discover a variety of 
 ### Colour Scheme
 For this app, I chose warm and inviting colour scheme which will enhance the app's appeal and usability.
 
-![alt text](documentation/images/design/airybites-colours.png)
+![Colour Scheme](documentation/images/design/airybites-colours.png)
 
 #### Primary Colour: Coral (#FF6F61)
 
@@ -120,14 +176,14 @@ For this app, I chose warm and inviting colour scheme which will enhance the app
 
 I chose the Raleway font for AiryBites Recipes because of its elegant and modern design, which enhances readability and gives the app a polished, professional appearance. Its versatility and range of weights ensure a cohesive and aesthetically pleasing user experience, making it ideal for headings and prominent text within the app.
 
-![alt text](documentation/images/design/raleway-font.png)
+![Primary Font](documentation/images/design/raleway-font.png)
 
 #### Secondary Font: [Open Sans](https://fonts.google.com/specimen/Open+Sans)
 *Open Sans is a versatile and legible sans-serif font that complements Raleway well, ensuring readability across various devices and screen sizes.*
 
 I chose Open Sans as the secondary font for AiryBites Recipes because of its excellent readability and versatility. Its clean, neutral design complements the elegance of Raleway, ensuring that detailed recipe instructions and longer text sections are easy to read across various devices and screen sizes.
 
-![alt text](documentation/images/design/opensans-font.png)
+![Secondary Font](documentation/images/design/opensans-font.png)
 
 ---
 
@@ -139,7 +195,7 @@ I chose to use MongoDB for my AiryBites recipe app because its flexible, schema-
 Additionally, I decided to create an Entity-Relationship Diagram (ERD) for the database to provide a clear and visual representation of the data model. This ensures that the structure and relationships of the data are well understood and consistently implemented. The ERD also serves as valuable documentation, helps identify potential design issues early on, and offers guidance during development, keeping the database organised and scalable, ultimately enhancing the project's overall quality and maintainability.
 #### ERD
 
-![alt text](documentation/images/design/airy-erd-drawio.png)
+![erd](documentation/images/design/airy-erd-drawio.png)
 
 **Relationships / References**
 1. **Users - Recipes**<br/>
@@ -181,33 +237,101 @@ I have designed the wireframe for PC and mobile screens for the AiryBites App to
 
 #### Home Page
 
-![alt text](documentation/images/wireframe/home-page.png)
+![Home Page](documentation/images/wireframe/home-page.png)
 
 #### Search Results Page
 
-![alt text](documentation/images/wireframe/search-results.png)
+![Search Results Page](documentation/images/wireframe/search-results.png)
 
 #### Category Page
 
-![alt text](documentation/images/wireframe/category-screen.png)
+![Category Page](documentation/images/wireframe/category-screen.png)
 
 #### Recipe Detail Page
 
-![alt text](documentation/images/wireframe/recipe-detail-screen.png)
+![Recipe Detail Page](documentation/images/wireframe/recipe-detail-screen.png)
 
 #### User Profile Page
 
-![alt text](documentation/images/wireframe/user-profile-page.png)
+![User Profile Page](documentation/images/wireframe/user-profile-page.png)
 
 ---
 
-## Technologies Used
-To build AiryBites Recipes, I will be utilising a robust stack of technologies:
+## Tools and Technologies Used
 
-- MongoDB: For the database, providing a flexible and scalable storage solution for our recipe data.
-- Flask: The web framework that will handle server-side logic and facilitate seamless interactions between the frontend and backend.
-- Python: As the primary programming language, powering the backend logic and various functionalities of the application.
-- JavaScript: To enhance the interactivity and responsiveness of the user interface.
-- HTML: For structuring the web pages and displaying content in a meaningful way.
-- CSS: To style the application and ensure an aesthetically pleasing and consistent design.
-- Materialize: A modern responsive CSS framework based on Material Design, which will provide a sleek and professional look to the UI components.
+- **MongoDB:** This database offers a flexible and scalable storage solution for our recipe data.
+
+- **Backend:**
+    - Flask: A web framework that manages server-side logic and ensures smooth interactions between the frontend and backend.
+    - Python: The primary programming language for backend logic and various functionalities of the application.
+    - Jinja2: The templating engine used by Flask to render HTML templates dynamically based on the backend data.
+
+- **Frontend:**
+    - JavaScript: Enhances the interactivity and responsiveness of the user interface.
+    - HTML: Structures the web pages and displays content effectively.
+    - CSS: Styles the application to ensure a visually appealing and consistent design.
+    - Materialize: A modern, responsive CSS framework based on Material Design, providing a sleek and professional look to the UI components.
+    - jQuery: Simplifies JavaScript programming and enhances functionality with its extensive library.
+    - FontAwesome: Provides scalable vector icons that can be customised with CSS.
+    - Google Fonts: Offers a wide selection of fonts to enhance typography and design.
+
+- **Deployment and Version Control:**
+    - Heroku: A platform for deploying, managing, and scaling the application.
+    - GitHub: For version control, collaboration, and hosting the source code.
+
+### Other Tools 
+
+- [Birme.net](https://brime.net) used to resize images. 
+- [GIMP](https://www.gimp.org/) was used to resize images for the README, TESTING and DEVELOPMENT files. 
+- [Real Favicon Generator](https://realfavicongenerator.net/) was used to generate favicons for the app.
+- [Colors.co](https://coolors.co/) was used to create the colour scheme for the app.
+- [Balsamiq](https://balsamiq.com/) aided in creating wireframes for the app.  
+- [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview) was used to check the performance.
+- [GoFullPage](https://gofullpage.com/) was used to get full page images.
+- [W3C HTML Validator](https://validator.w3.org/) was used to validate HTML documents.
+- [Jigsaw W3 CSS Validator](https://jigsaw.w3.org/) was used to validate CSS documents.
+- [Peek](https://github.com/phw/peek) was used for animated gif recordings.
+- [Responsive Viewer](https://chromewebstore.google.com/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb) was continuously used to test multiple screens while developing.
+- [WAVE Web Accessibility Evaluation Tools](https://wave.webaim.org/) was used to check Web Accessibility.
+
+## Credits
+
+### Background Images
+Images provided by [PNGTree](https://pngtree.com/).
+
+### Research Websites
+- [W3C School](https://www.w3schools.com/js/) to read and learn how to use JS.
+- [Mozilla Developer](https://developer.mozilla.org/en-US/docs/Learn/JavaScript) Learn JavaScript.
+- **MongoDB**: Learn more about MongoDB at the [MongoDB Documentation](https://docs.mongodb.com/).
+- **Python**: Explore Python's capabilities and syntax at [Python Documentation](https://docs.python.org/).
+- **Jinja2**: Discover Jinja2 templating engine at [Jinja Documentation](https://jinja.palletsprojects.com/).
+
+---
+---
+
+## Acknowledgments
+
+- [Juliia Konovalova](https://github.com/IuliiaKonovalova) Thank you for your awesome guidance throughout this project.
+- [Code Institute](https://codeinstitute.net) Slack community and members for their help and support.
+- [Kevin Powell](https://www.youtube.com/channel/UCJZv4d5rbIKd4QHMPkcABCw) for his CSS tutorials.
+- [Online Tutorials](https://www.youtube.com/@OnlineTutorialsYT) for tutorial on CSS Animation.
+- [Super Simple Dev](https://youtu.be/SBmSRK3feww?si=oJoi7n9oJxI8Dgya) JavaScript tutorial.
+
+---
+---
+
+## Mistakes and personal goals for improvements 
+
+I am aware my commits are not up to standards for good practices. I have tried to use the commits in the style listed below and I am also aware that at times I have made mistakes with my commit messages. 
+
+*I have been using commit types like shown below to improve my commit messages:*
+
+- feat – a new feature is introduced with the changes. 
+
+- fix – a bug fix has occurred.
+
+- chore – changes that do not relate to a fix or feature and do not modify source or test files (for example updating dependencies).
+
+- refactor – refactored code that neither fixes a bug nor adds a feature.
+
+- docs – updates to documentation such as the README or other markdown files. 
