@@ -7,11 +7,55 @@ The BETA testers, consisting of friends and family, enthusiastically engaged in 
 ## Browser Compatibility Tests
 I tested the website in different browsers for compatibility.
 
-Please refer to [Browser Compatibility Tests (PDF)](pdf/browser-tests.pdf)
+- Chrome Browser Test
+    - ![Chrome](images/testing/browser-tests/chrome.gif)
+
+- Firefox Browser Test
+    - ![Firefox](images/testing/browser-tests/firefox.gif)
+
+- Opera Browser Test
+    - ![Opera](images/testing/browser-tests/opera.gif)
+
+
+## W3Schools NU Validator
+
+### CSS
+- Style
+    - ![CSS](images/testing/w3s/w3s-css.png)
+
+### HTML
+- Home Page
+    - ![Home Page](images/testing/w3s/w3s-home.png)
+
+- Login Page
+    - ![Login Page](images/testing/w3s/w3s-login.png)
+
+- Profile Page
+    - ![Profile Page](images/testing/w3s/ws3-profile.png)
+
+- Admin Panel Page
+    - ![Admin Panel Page](images/testing/w3s/w3s-admin-panel.png)
+
+- Manage Recipes Page from Admin Panel
+    - ![Manage Recipes Page](images/testing/w3s/w3s-man-recipes.png)
+
+
+## Code Institutes Python Linter
 
 
 
-</ul>
+## Lighthouse
+
+I could not check all pages due to user authentication, which caused the Lighthouse extension to redirect to the login page. I have only taken the tests on the pages that are accessible without user authentication.
+
+- Home Page
+    - ![lighthouse home page test](images/testing/lighthouse/lh-home.png)
+
+- Login Page
+    - ![lighthouse Login page test](images/testing/lighthouse/lh-login.png)
+
+- Registration Page
+    - ![lighthouse Registration page test](images/testing/lighthouse/lh-regiter.png)
 
 ## Manual Testing
 
@@ -152,3 +196,55 @@ Only visiable
 | User List Filter by Role               | User List Table            | Filtering users by role displays only users with the selected role.                                   | Yes    | Yes    |                      |
 | User List - No Users Message           | User List Table            | Displays a message if there are no users to show.                                                    | Yes    | Yes    |                      |
 | User List - Error Handling             | User List Table            | Displays an error message if user data cannot be loaded.                                             | Yes    | Yes    |                      |
+
+
+## Bugs
+
+### Solved Bugs
+
+**Bug Report**
+
+Blank lines appearing in the instructions list of recipes.
+
+- Description
+    - When viewing a recipe, the instructions list was displaying blank lines at steps. This occurred because some instructions contained only whitespace, which was rendered as blank list items.
+
+- Steps to Reproduce
+    1. Navigate to a recipe page.
+    2. View the instructions list.
+    3. Observe the presence of blank lines within the list of instructions.
+
+- Expected Behaviour
+    - The instructions list should only display steps that contain actual instructions, with no blank lines.
+
+- Actual Behaviour
+    - The instructions list includes blank lines for steps that contain only whitespace.
+
+- Original Code
+    - The instructions list was displaying blank lines at steps when the recipe was viewed.
+
+```
+{% for instruction in recipe.instructions %}
+    <li>{{ instruction }}</li>
+{% endfor %}
+```
+- Solution
+To fix this issue, I added a strip() method to remove any leading or trailing whitespace from each instruction before rendering it.
+
+- Fixed Code
+```
+{% for instruction in recipe.instructions %}
+    {% if instruction.strip() %}
+        <li>{{ instruction }}</li>
+    {% endif %}
+{% endfor %}
+```
+- Summary
+    - By adding the strip() method, blank lines are no longer rendered in the instructions list, ensuring that only steps with actual content are displayed.
+
+
+
+
+### Unsolved bugs
+
+- None known
