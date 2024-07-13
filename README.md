@@ -3,6 +3,8 @@
 ## Introduction
 Welcome to AiryBites Recipes, my Milestone Project 3 for the Level 5 Diploma in Full Stack Web Application Development! This project will showcase my skills in full-stack web development by creating a dynamic and user-friendly recipe sharing application.
 
+![alt text](documentation/images/mockup.png)
+
 ### Project Overview
 AiryBites Recipes will enable users to create, share, and discover a variety of recipes. Users will be able to:
 
@@ -258,13 +260,47 @@ I have designed the wireframe for PC and mobile screens for the AiryBites App to
 ---
 
 ## Testing
-Please refer to [TESTING.md](documentation/TESTING.md)
+The app's functionality was also tested by friends and family. Their feedback was invaluable in identifying any issues and making necessary improvements.
+
+For a detailed list of all testing steps taken, please refer to [TESTING.md](documentation/TESTING.md)
 
 ---
 
 ## Deployment
+The deployment process involved several steps to ensure that the app was correctly and efficiently deployed to production environments.
 
-Please refer to [DEPLOYMENT.md](documentation/DEPLOYMENT.md)
+**Platform Deployment**
+- App Deployment: The app was deployed to Heroku, a cloud platform that allows for easy and scalable application hosting. More information about Heroku can be found [here](https://www.heroku.com/).
+- Database Deployment: The database was deployed using MongoDB, a NoSQL database known for its flexibility and scalability. More information about MongoDB can be found [here](https://www.mongodb.com/).
+
+For full deployment steps, please refer to [DEPLOYMENT.md](documentation/DEPLOYMENT.md)
+
+## Future Improvements to the AiryBites App
+To enhance the user experience and functionality of the AiryBites app, I have identified several key improvements. Below is a list of these enhancements, along with reasons why some may face implementation delays due to time constraints and the current use of GitHub.
+
+### Planned Improvements
+- Advanced Search Functionality
+   - Description: Allow users to filter recipes by ingredients, category, tags, and cooking time.
+   - Reason for Delay: Complex filtering algorithms and data structuring required. Significant development time needed.
+
+- Saved Recipes Access
+   - Description: Enable users to comment on and rate recipes to foster community engagement.
+   - Reason for Delay: Implementation of a robust moderation system to manage comments and ratings will be time-consuming.
+
+- Recipe Analytics for Users
+   - Description: Show detailed analytics on views, comments, and ratings for each user's submitted recipes.
+   - Reason for Delay: Integration of analytics tools and data visualisation components can be complex and time-intensive.
+
+- Admin Monitoring Tools
+   - Description: Enhance tools for admins to monitor user activity, including recipe submissions, comments, and ratings.
+   - Reason for Delay: Developing comprehensive monitoring dashboards and alerts will require extensive backend work.
+
+- User Engagement and Performance Reports
+   - Description: Generate detailed reports on user engagement and content performance for admins.
+   - Reason for Delay: Creating dynamic reporting systems with customisable metrics will involve significant development efforts.
+
+**Conclusion**
+While I aim to implement these improvements to enhance the AiryBites app, some features may experience delays due to the complexity and development time required. However, I am committed to continuously improving the app and will prioritise features based on user feedback and resource availability.
 
 
 ## Tools and Technologies Used

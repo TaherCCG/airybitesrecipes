@@ -1,5 +1,7 @@
 # Testing
 
+## Deployed App : https://airybites-app-9649332aa316.herokuapp.com/
+
 ## BETA Testers 
 
 The BETA testers, consisting of friends and family, enthusiastically engaged in testing the AiryBites Air Fryers recipe app. They assumed various roles and used a variety of devices, from home chefs exploring new recipes to tech-savvy testers navigating administrative functions. Their diverse perspectives and feedback were instrumental in refining the app's usability and functionality across smartphones, tablets, and laptops. A heartfelt thank you is extended to everyone who participated, ensuring that AiryBites meets the needs of its users! Special appreciation goes to my 8-year-old son and 10-year-old daughter for adding some truly "Yummy!" recipes to the mix.
@@ -241,8 +243,6 @@ To fix this issue, I added a strip() method to remove any leading or trailing wh
 ```
 - Summary
     - By adding the strip() method, blank lines are no longer rendered in the instructions list, ensuring that only steps with actual content are displayed.
-
-
 
 
 ### Unsolved bugs
