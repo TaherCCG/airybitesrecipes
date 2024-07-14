@@ -231,6 +231,84 @@ I have set up some basic collections for MongoDB to support the functionality of
 - **Categories** Stores information about recipe categories.<br/>
 *(CategoryID, Name, Description, CreatedAt, UpdatedAt)*<br/>
 
+
+### Recipe Collection
+
+```sql
+{
+    "_id": {
+        "$oid": "667d7bedfb3d723dcab788a0"
+    },
+    "recipe_title": "Recipe Title",
+    "recipe_description": "Recipe Description",
+    "instructions": [
+        "Step 1\r",
+        "Step 2\r",
+        "Step 3\r"
+    ],
+    "cook_time": {
+        "$numberInt": "60"
+    },
+    "prep_time": {
+        "$numberInt": "60"
+    },
+    "total_time": {
+        "$numberInt": "120"
+    },
+    "temperature": {
+        "$numberInt": "6"
+    },
+    "servings": {
+        "$numberInt": "6"
+    },
+    "image_url": "",
+    "category": "Breakfast",
+    "tags": [
+        "Air Fryers",
+        "   Potato",
+        "   Wedges"
+    ],
+    "ingredients": [
+        {
+            "ingredient_id": {
+                "$oid": "667d71f033ef874ed573d2fd"
+            },
+            "quantity": "6"
+        },
+        {
+            "ingredient_id": {
+                "$oid": "667d71f033ef874ed573d2fe"
+            },
+            "quantity": "1"
+        }
+    ],
+    "created_at": {
+        "$date": {
+            "$numberLong": "1720552390327"
+        }
+    },
+    "updated_at": "11/07/2024 13:30",
+    "created_by": "username"
+}
+
+```
+
+**Explanation of Fields:**
+- _id: The unique identifier for the recipe, stored as an ObjectId.
+- recipe_title: The title of the recipe.
+- recipe_description: A brief description of the recipe.
+- instructions: An array of steps to follow for the recipe.
+- cook_time, prep_time, total_time: Time in minutes required for cooking preparation, and the total time respectively, stored as integers.
+- temperature: The temperature setting for cooking, stored as an integer.
+- servings: Number of servings the recipe yields, stored as an integer.
+- image_url: A URL to an image of the recipe (for future update, at this time not possiable for user to upload image to platforms I am using.)
+- category: The category under which the recipe falls (e.g., Breakfast).
+- tags: An array of tags associated with the recipe.
+- ingredients: An array of ingredients used in the recipe, each containing an ingredient_id (ObjectId) and a quantity.
+- created_at: The timestamp when the recipe was created, stored as a date object with a long integer value.
+- updated_at: The date and time when the recipe was last updated.
+- created_by: The user who created the recipe.
+
 ---
 
 ### Wireframes
@@ -345,6 +423,8 @@ While I aim to implement these improvements to enhance the AiryBites app, some f
 ### Background Images
 Images provided by [PNGTree](https://pngtree.com/).
 
+### Favicon: 
+Favicon made on [Favicon Generator](https://favicon.io/favicon-generator/)
 ### Research Websites
 - [W3C School](https://www.w3schools.com/js/) to read and learn how to use JS.
 - [Mozilla Developer](https://developer.mozilla.org/en-US/docs/Learn/JavaScript) Learn JavaScript.

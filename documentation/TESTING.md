@@ -42,9 +42,22 @@ I tested the website in different browsers for compatibility.
     - ![Manage Recipes Page](images/testing/w3s/w3s-man-recipes.png)
 
 
-## Code Institutes Python Linter
+### Code Institutes Python Linter
 
+- Used CI Python Lint to check that the code is PEP8 compliant. 
+![CI PEP8 Python Lint](images/testing/other/ci-python-lint.png)
 
+### JShint
+
+- Use of Jshint to check the script.js file.
+![JShint](images/testing/other/jshint.png)
+
+The JSHint validator checker reported two undefined variables:
+- `$` at lines 4, 6, 8, 10, 12, 63, 64, 67, 68, 69, 70, 74, 75, 77, 78, 79, 80
+- `$`: This error is due to the use of jQuery, which uses $ as a shorthand for its operations.
+
+- `M` at lines 95, 108, 116, 118, 126
+- `M`: This error is due to the use of modal functions or other Materialize components used.
 
 ## Lighthouse
 
