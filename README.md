@@ -440,7 +440,6 @@ Favicon made on [Favicon Generator](https://favicon.io/favicon-generator/)
 - [Juliia Konovalova](https://github.com/IuliiaKonovalova) Thank you for your awesome guidance throughout this project.
 - [Code Institute](https://codeinstitute.net) Slack community and members for their help and support.
 - [Kevin Powell](https://www.youtube.com/channel/UCJZv4d5rbIKd4QHMPkcABCw) for his CSS tutorials.
-- [Online Tutorials](https://www.youtube.com/@OnlineTutorialsYT) for tutorial on CSS Animation.
 - [Super Simple Dev](https://youtu.be/SBmSRK3feww?si=oJoi7n9oJxI8Dgya) JavaScript tutorial.
 
 ---

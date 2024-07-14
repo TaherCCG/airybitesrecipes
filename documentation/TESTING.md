@@ -178,7 +178,6 @@ Only visiable
 | Modal Open - Delete Category     | "Delete" Button in Table   | Clicking "Delete" button for a category opens the modal to confirm deletion.                          | Yes    | Yes    |                      |
 | Modal Close - Delete Category    | Delete Category Modal      | Clicking "Cancel" in the Delete Category modal closes the modal without deleting the category.        | Yes    | Yes    |                      |
 | Delete Category Confirmation    | Delete Category Modal      | Clicking "Delete" in the Delete Category modal permanently deletes the category from the list.        | Yes    | Yes    |                      |
-| Categories Table Sorting        | Table Headers              | Clicking on "Category Name" or "Number of Recipes" headers sorts the table alphabetically or numerically.| Yes | Yes    |                      |
 | Error Handling - Add Category    | Add New Category Form      | Submitting the form without entering a category name displays an error message and prevents submission.| Yes    | Yes    |                      |
 | Error Handling - Edit Category   | Edit Category Form         | Submitting the form without entering a category name displays an error message and prevents submission.| Yes    | Yes    |                      |
 | Error Handling - Delete Category | Delete Category Modal      | Confirming deletion without selection displays an error message and prevents deletion.                | Yes    | Yes    |                      |
@@ -207,10 +206,7 @@ Only visiable
 | User Deletion - Confirmation Dialog    | Delete User Button        | Clicking "Delete User" opens a confirmation dialog.                                                  | Yes    | Yes    |                      |
 | User Deletion - Recipe Deletion Option | Delete User Modal          | Checkbox "Also delete all recipes created by this user" is functional and updates the deletion process. | Yes | Yes |                      |
 | Role Selection - Accessible Options    | Role Dropdown             | The role dropdown correctly displays the options for "User" and "Admin" only.                         | Yes    | Yes    |                      |
-| User List Search Functionality         | User List Table            | Searching for a username filters the list to show matching results.                                  | Yes    | Yes    |                      |
-| User List Filter by Role               | User List Table            | Filtering users by role displays only users with the selected role.                                   | Yes    | Yes    |                      |
-| User List - No Users Message           | User List Table            | Displays a message if there are no users to show.                                                    | Yes    | Yes    |                      |
-| User List - Error Handling             | User List Table            | Displays an error message if user data cannot be loaded.                                             | Yes    | Yes    |                      |
+
 
 
 ## Bugs
