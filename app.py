@@ -146,8 +146,9 @@ def delete_user(user_id):
     """Delete User"""
     delete_recipes = request.form.get('delete_recipes') == 'true'
     user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    admin_count = mongo.db.users.count_documents({"role": "admin"})
 
-    if user:
+    if user and (user["role"] != "admin" or admin_count > 1):
         mongo.db.users.delete_one({"_id": ObjectId(user_id)})
 
         if delete_recipes:
@@ -158,7 +159,7 @@ def delete_user(user_id):
         else:
             flash("User successfully deleted", "success")
     else:
-        flash("User not found.", "error")
+        flash("Cannot delete the last admin user.", "error")
 
     return redirect(url_for("user_roles"))
 
