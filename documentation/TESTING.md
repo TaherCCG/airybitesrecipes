@@ -213,9 +213,9 @@ Only visiable
 
 ### Solved Bugs
 
-**Bug Report**
+**Bug Report Bug-1**
 
-Blank lines appearing in the instructions list of recipes.
+Bug: Blank lines appearing in the instructions list of recipes.
 
 - Description
     - When viewing a recipe, the instructions list was displaying blank lines at steps. This occurred because some instructions contained only whitespace, which was rendered as blank list items.
@@ -253,6 +253,117 @@ To fix this issue, I added a strip() method to remove any leading or trailing wh
 - Summary
     - By adding the strip() method, blank lines are no longer rendered in the instructions list, ensuring that only steps with actual content are displayed.
 
+
+
+**Bug Report Bug-2**
+
+Bug: Admin can delete admin users, including itself.
+
+- Description:
+
+The admin in the user management role can delete all admin users, including itself. This can lead to a scenario where there are no admin users left, potentially leaving the application without administrative access.
+
+- Steps to Reproduce:
+    1. Navigate to the user management page as an admin.
+    2. Attempt to delete another admin user.
+    3. Notice that it is possible to delete admin users, including the currently logged-in admin.
+
+- Expected Behaviour:
+The application should prevent the deletion of the last remaining admin user to ensure there is always at least one admin with the necessary privileges. Alternatively, there should be a superuser role that cannot be deleted by regular admins.
+
+- Actual Behaviour:
+The application allows admins to delete other admin users, including themselves, which can result in the application having no admin users.
+
+- Original Code:
+
+```py
+@app.route("/delete_user/<user_id>", methods=["POST"])
+@admin_required
+def delete_user(user_id):
+    """Delete User"""
+    delete_recipes = request.form.get('delete_recipes') == 'true'
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+
+    if user:
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+
+        if delete_recipes:
+            mongo.db.recipes.delete_many({"created_by": user["username"]})
+
+        if delete_recipes:
+            flash("User and their recipes successfully deleted", "success")
+        else:
+            flash("User successfully deleted", "success")
+    else:
+        flash("User not found.", "error")
+
+    return redirect(url_for("user_roles"))
+```
+
+Solution 1: Prevent the last remaining admin from deleting itself.
+
+Solution 1 Code:
+
+```py
+@app.route("/delete_user/<user_id>", methods=["POST"])
+@admin_required
+def delete_user(user_id):
+    """Delete User"""
+    delete_recipes = request.form.get('delete_recipes') == 'true'
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    admin_count = mongo.db.users.count_documents({"role": "admin"})
+
+    if user and (user["role"] != "admin" or admin_count > 1):
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+
+        if delete_recipes:
+            mongo.db.recipes.delete_many({"created_by": user["username"]})
+
+        if delete_recipes:
+            flash("User and their recipes successfully deleted", "success")
+        else:
+            flash("User successfully deleted", "success")
+    else:
+        flash("Cannot delete the last admin user.", "error")
+
+    return redirect(url_for("user_roles"))
+```
+The user gets the following message if he/she is the last admin:
+- ![alt text](images/features/del-last-admin.png)
+
+
+Solution 2: Create a superuser role that admins cannot delete.
+To implement Solution 2, I will also need to adjust the users collection in MongoDB to include the "superuser" role.
+
+Solution 2 Code:
+
+```py
+@app.route("/delete_user/<user_id>", methods=["POST"])
+@admin_required
+def delete_user(user_id):
+    """Delete User"""
+    delete_recipes = request.form.get('delete_recipes') == 'true'
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+
+    if user and user["role"] != "superuser":
+        mongo.db.users.delete_one({"_id": ObjectId(user_id)})
+
+        if delete_recipes:
+            mongo.db.recipes.delete_many({"created_by": user["username"]})
+
+        if delete_recipes:
+            flash("User and their recipes successfully deleted", "success")
+        else:
+            flash("User successfully deleted", "success")
+    else:
+        flash("Cannot delete a superuser.", "error")
+
+    return redirect(url_for("user_roles"))
+```
+
+- Summary:
+
+Solution 1 has been implemented to address the issue of admins being able to delete themselves, ensuring that the last remaining admin cannot delete their own account. Solution 2 will be applied in the future, which involves updating the MongoDB database to include a superuser role that cannot be deleted by regular admins.
 
 ### Unsolved bugs
 
